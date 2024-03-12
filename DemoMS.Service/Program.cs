@@ -16,13 +16,29 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-
-
-app.MapGet("/weatherforecast", () =>
+app.MapGet("/items", () =>
 {
   // not implemented
 });
 
+app.MapGet("/items/{id}", (int id) =>
+{
+    // not implemented
+});
+
+app.MapPost("/items", () =>
+{
+    // not implemented
+});
+
+app.MapPut("/items{id}", (int id) =>
+{
+    // not implemented
+});
+
+app.MapDelete("/items{id}", (int id) =>
+{
+    // not implemented
+});
+
 app.Run();
-
-
