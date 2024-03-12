@@ -13,7 +13,6 @@ namespace DemoMS.Service
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
             //in memory
-            
             services.AddScoped<IInMemoryData<ItemDto>,InMemoryData>();
             services.AddScoped<IInMemoryGetAllIUseCase<ItemDto>, InMemoryGetAllIUseCase>();
             
