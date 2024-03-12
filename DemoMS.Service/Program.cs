@@ -1,4 +1,6 @@
 using DemoMS.Service;
+using DemoMS.Service.DTOS;
+using DemoMS.Service.Repository.InMemory.UseCases.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,9 +20,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/items", () =>
+app.MapGet("/items", (IInMemoryGetAllIUseCase<ItemDto> data) =>
 {
-  // not implemented
+    return Results.Ok(data.Execute());
 });
 
 app.MapGet("/items/{id}", (int id) =>

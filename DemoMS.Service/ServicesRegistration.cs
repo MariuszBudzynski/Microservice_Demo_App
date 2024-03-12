@@ -1,5 +1,8 @@
 ﻿using DemoMS.Service.DTOS;
-using DemoMS.Service.Repository.InMemoryRepository;
+using DemoMS.Service.Repository.InMemory.InMemoryRepository;
+using DemoMS.Service.Repository.InMemory.InMemoryRepository.Interface;
+using DemoMS.Service.Repository.InMemory.UseCases;
+using DemoMS.Service.Repository.InMemory.UseCases.Interfaces;
 
 namespace DemoMS.Service
 {
@@ -9,7 +12,11 @@ namespace DemoMS.Service
         {
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
-            services.AddScoped<InMemoryData<ItemDto>>();
+            //in memory
+            
+            services.AddScoped<IInMemoryData<ItemDto>,InMemoryData>();
+            services.AddScoped<IInMemoryGetAllIUseCase<ItemDto>, InMemoryGetAllIUseCase>();
+            
         }
     }
 }
