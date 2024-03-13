@@ -1,5 +1,6 @@
 using DemoMS.Service;
 using DemoMS.Service.DTOS;
+using DemoMS.Service.Repository.InMemory.InMemoryUseCases.Interfaces;
 using DemoMS.Service.Repository.InMemory.UseCases.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
-ServicesRegistration.RegisterServices(builder.Services);
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+InMemoryServicesRegistration.RegisterServices(builder.Services);
 
 var app = builder.Build();
 
@@ -20,29 +23,30 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/items", (IInMemoryGetAllIUseCase<ItemDto> data) =>
+app.MapGet("/items", (IInMemoryGetAllIUseCase<ItemDto> inMemoryGetAllIUseCase) =>
 {
-    return Results.Ok(data.Execute());
+    //return Results.Ok(inMemoryGetAllIUseCase.Execute());
+    return inMemoryGetAllIUseCase.Execute();
 });
 
-app.MapGet("/items/{id}", (int id) =>
+app.MapGet("/items/{id}", (Guid id,IInMemoryGetDataByIDUseCase<ItemDto> inMemoryGetDataByIDUseCase) =>
 {
-    // not implemented
+    return inMemoryGetDataByIDUseCase.Execute(id);
 });
 
-app.MapPost("/items", () =>
+app.MapPost("/items", (ItemDto item,IInMemoryAddDataUseCase<ItemDto> inMemoryAddDataUseCase) =>
 {
-    // not implemented
+    inMemoryAddDataUseCase.Execute(item);
 });
 
-app.MapPut("/items{id}", (int id) =>
+app.MapPut("/items{id}", (ItemDto data,IInMemoryUpdateDataUseCase<ItemDto> inMemoryUpdateDataUseCase) =>
 {
-    // not implemented
+    inMemoryUpdateDataUseCase.Execute(data);
 });
 
-app.MapDelete("/items{id}", (int id) =>
+app.MapDelete("/items{id}", (Guid id,IInMemoryDeleteDataUseCase<ItemDto> inMemoryDeleteDataUseCase) =>
 {
-    // not implemented
+    return inMemoryDeleteDataUseCase.Execute(id);
 });
 
 app.Run();

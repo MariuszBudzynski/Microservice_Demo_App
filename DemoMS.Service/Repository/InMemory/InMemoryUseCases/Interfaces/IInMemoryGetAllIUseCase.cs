@@ -2,6 +2,6 @@
 {
     public interface IInMemoryGetAllIUseCase<T> where T : class
     {
-        IEnumerable<T> Execute();
+        IResult Execute();
     }
 }
