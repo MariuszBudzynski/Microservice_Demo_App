@@ -2,7 +2,7 @@
 
 namespace DemoMS.Service.Repository.InMemory.InMemoryUseCases.Interfaces
 {
-    public interface IInMemoryAddDataUseCase<T> where T : CreatedItemDto
+    public interface IInMemoryAddDataUseCase<T> where T : class
     {
         IResult Execute(T data);
     }

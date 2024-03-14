@@ -3,7 +3,7 @@ using DemoMS.Service.Repository.InMemory.InMemoryRepository.Interface;
 
 namespace DemoMS.Service.Repository.InMemory.InMemoryRepository
 {
-    public class InMemoryData : IInMemoryData<ItemDto>
+    public class InMemoryData : IInMemoryData<ItemDto, UpdateItemDTO>
     {
         private static List<ItemDto> itemDtos = new()
         {

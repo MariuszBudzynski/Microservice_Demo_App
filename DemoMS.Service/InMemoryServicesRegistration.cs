@@ -11,7 +11,7 @@ namespace DemoMS.Service
     {
         public static void RegisterServices(this IServiceCollection services)
         {
-            services.AddScoped<IInMemoryData<ItemDto>,InMemoryData>();
+            services.AddScoped<IInMemoryData<ItemDto, UpdateItemDTO>,InMemoryData>();
             services.AddScoped<IInMemoryGetAllIUseCase<ItemDto>, InMemoryGetAllUseCase>();
             services.AddScoped<IInMemoryGetDataByIDUseCase<ItemDto>, InMemoryGetDataByIDUseCase>();
             services.AddScoped<IInMemoryAddDataUseCase<CreatedItemDto>, InMemoryAddDataUseCase>();

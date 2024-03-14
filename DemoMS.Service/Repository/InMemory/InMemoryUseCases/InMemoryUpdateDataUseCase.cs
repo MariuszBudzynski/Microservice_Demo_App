@@ -6,9 +6,9 @@ namespace DemoMS.Service.Repository.InMemory.UseCases
 {
     public class InMemoryUpdateDataUseCase : IInMemoryUpdateDataUseCase<UpdateItemDTO>
     {
-        private readonly IInMemoryData<ItemDto> _inMemoryData;
+        private readonly IInMemoryData<ItemDto, UpdateItemDTO> _inMemoryData;
 
-        public InMemoryUpdateDataUseCase(IInMemoryData<ItemDto> inMemoryData)
+        public InMemoryUpdateDataUseCase(IInMemoryData<ItemDto, UpdateItemDTO> inMemoryData)
         {
             _inMemoryData = inMemoryData;
         }
