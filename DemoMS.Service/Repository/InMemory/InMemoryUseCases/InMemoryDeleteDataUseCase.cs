@@ -20,7 +20,7 @@ namespace DemoMS.Service.Repository.InMemory.UseCases
 
             if (data == null)
             {
-                return Results.Ok();
+                return Results.NotFound("No item found");
             }
             else
             {

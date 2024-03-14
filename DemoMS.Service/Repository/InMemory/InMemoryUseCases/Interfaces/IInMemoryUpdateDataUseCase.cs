@@ -2,8 +2,9 @@
 
 namespace DemoMS.Service.Repository.InMemory.InMemoryUseCases.Interfaces
 {
-    public interface IInMemoryUpdateDataUseCase<T> where T : class
+    public interface IInMemoryUpdateDataUseCase<T> where T: UpdateItemDTO
     {
-        IResult Execute(T item);
+        IResult Execute(Guid id, T item);
+
     }
 }

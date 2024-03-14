@@ -11,13 +11,12 @@ namespace DemoMS.Service
     {
         public static void RegisterServices(this IServiceCollection services)
         {
-            //in memory
             services.AddScoped<IInMemoryData<ItemDto>,InMemoryData>();
             services.AddScoped<IInMemoryGetAllIUseCase<ItemDto>, InMemoryGetAllUseCase>();
             services.AddScoped<IInMemoryGetDataByIDUseCase<ItemDto>, InMemoryGetDataByIDUseCase>();
-            services.AddScoped<IInMemoryAddDataUseCase<ItemDto>, InMemoryAddDataUseCase>();
+            services.AddScoped<IInMemoryAddDataUseCase<CreatedItemDto>, InMemoryAddDataUseCase>();
             services.AddScoped<IInMemoryDeleteDataUseCase<ItemDto>,InMemoryDeleteDataUseCase>();
-            services.AddScoped<IInMemoryUpdateDataUseCase<ItemDto>,InMemoryUpdateDataUseCase>();
+            services.AddScoped<IInMemoryUpdateDataUseCase<UpdateItemDTO>,InMemoryUpdateDataUseCase>();
 
         }
     }

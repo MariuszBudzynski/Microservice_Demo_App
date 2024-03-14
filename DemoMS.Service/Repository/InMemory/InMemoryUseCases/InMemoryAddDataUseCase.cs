@@ -4,7 +4,7 @@ using DemoMS.Service.Repository.InMemory.InMemoryUseCases.Interfaces;
 
 namespace DemoMS.Service.Repository.InMemory.UseCases
 {
-    public class InMemoryAddDataUseCase : IInMemoryAddDataUseCase<ItemDto>
+    public class InMemoryAddDataUseCase : IInMemoryAddDataUseCase<CreatedItemDto>
     {
         private readonly IInMemoryData<ItemDto> _inMemoryData;
 
@@ -13,9 +13,10 @@ namespace DemoMS.Service.Repository.InMemory.UseCases
             _inMemoryData = inMemoryData;
         }
 
-        public IResult Execute(ItemDto data)
+        public IResult Execute(CreatedItemDto data)
         {
-           _inMemoryData.AddtData(data);
+            var newItem = new ItemDto(Guid.NewGuid(),data.Name,data.Description,data.price,DateTime.UtcNow);
+           _inMemoryData.AddtData(newItem);
            return Results.Created();
         }
     }

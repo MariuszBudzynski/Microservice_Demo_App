@@ -8,6 +8,6 @@ namespace DemoMS.Service.Repository.InMemory.InMemoryRepository.Interface
         T GetDataByID(Guid id);
         void AddtData(T data);
         void DeleteData(Guid id);
-        void UpdataData(T item);
+        void UpdataData<Z>(Guid id,Z item) where Z : UpdateItemDTO;
     }
 }

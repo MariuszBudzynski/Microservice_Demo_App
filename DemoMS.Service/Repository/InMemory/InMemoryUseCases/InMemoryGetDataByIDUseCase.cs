@@ -16,6 +16,10 @@ namespace DemoMS.Service.Repository.InMemory.UseCases
         public IResult Execute(Guid id)
         {
             var data = _inMemoryData.GetDataByID(id);
+            if (data == null)
+            {
+                return Results.NotFound("Item not found");
+            }
             return Results.Ok(data);
         }
     }

@@ -18,14 +18,14 @@ namespace DemoMS.Service
                 return inMemoryGetDataByIDUseCase.Execute(id);
             });
 
-            app.MapPost("/items", (ItemDto item, IInMemoryAddDataUseCase<ItemDto> inMemoryAddDataUseCase) =>
+            app.MapPost("/items", (CreatedItemDto item, IInMemoryAddDataUseCase<CreatedItemDto> inMemoryAddDataUseCase) =>
             {
                 inMemoryAddDataUseCase.Execute(item);
             });
 
-            app.MapPut("/items{id}", (ItemDto data, IInMemoryUpdateDataUseCase<ItemDto> inMemoryUpdateDataUseCase) =>
+            app.MapPut("/items{id}", (Guid id,UpdateItemDTO data, IInMemoryUpdateDataUseCase<UpdateItemDTO> inMemoryUpdateDataUseCase) =>
             {
-                inMemoryUpdateDataUseCase.Execute(data);
+                inMemoryUpdateDataUseCase.Execute(id,data);
             });
 
             app.MapDelete("/items{id}", (Guid id, IInMemoryDeleteDataUseCase<ItemDto> inMemoryDeleteDataUseCase) =>

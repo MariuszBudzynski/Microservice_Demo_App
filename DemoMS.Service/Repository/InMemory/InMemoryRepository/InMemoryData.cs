@@ -19,10 +19,10 @@ namespace DemoMS.Service.Repository.InMemory.InMemoryRepository
 
         public ItemDto GetDataByID(Guid id)
         {
-            return itemDtos.FirstOrDefault(x=>x.Id == id);
+            return itemDtos.FirstOrDefault(x => x.Id == id);
         }
 
-        public  void AddtData(ItemDto data)
+        public void AddtData(ItemDto data)
         {
             itemDtos.Add(data);
         }
@@ -33,13 +33,13 @@ namespace DemoMS.Service.Repository.InMemory.InMemoryRepository
             itemDtos.Remove(dataToBeRemoved);
         }
 
-        public void UpdataData(ItemDto item)
+        public void UpdataData<Z>(Guid id, Z item) where Z : UpdateItemDTO
         {
-           var itemToBeRemoved = GetDataByID(item.Id);
+            var itemToBeRemoved = GetDataByID(id);
+            ItemDto updatedItemDto = new(itemToBeRemoved.Id, item.Name, item.Description, item.price, DateTime.UtcNow);
+
             itemDtos.Remove(itemToBeRemoved);
-            itemDtos.Add(item);
+            itemDtos.Add(updatedItemDto);
         }
-
-
     }
 }
