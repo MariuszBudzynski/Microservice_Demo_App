@@ -12,6 +12,7 @@ builder.Services.AddSwaggerGen();
 
 //adding custom validation configuration
 builder.Services.AddValidatorsFromAssemblyContaining(typeof(CreatedItemDtoValidator));
+builder.Services.AddValidatorsFromAssemblyContaining(typeof(UpdatedItemDtoValidator));
 
 InMemoryServicesRegistration.RegisterServices(builder.Services);
 
