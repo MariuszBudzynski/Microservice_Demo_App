@@ -6,8 +6,8 @@ namespace DemoMS.Service.Repository.InMemory.InMemoryRepository.Interface
     {
         IEnumerable<T> GetAllData();
         T GetDataByID(Guid id);
-        void AddtData(T data);
+        void AddData(T data);
         void DeleteData(Guid id);
-        void UpdataData<Z>(Guid id,Z item) where Z : UpdateItemDTO;
+        void UpdateData(Guid id, UpdateItemDTO item);
     }
 }

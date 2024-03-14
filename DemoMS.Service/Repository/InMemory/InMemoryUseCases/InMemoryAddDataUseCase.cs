@@ -15,8 +15,8 @@ namespace DemoMS.Service.Repository.InMemory.UseCases
 
         public IResult Execute(CreatedItemDto data)
         {
-            var newItem = new ItemDto(Guid.NewGuid(),data.Name,data.Description,data.price,DateTime.UtcNow);
-           _inMemoryData.AddtData(newItem);
+            var newItem = new ItemDto(Guid.NewGuid(),data.Name,data.Description,data.price, DateTimeOffset.UtcNow);
+           _inMemoryData.AddData(newItem);
            return Results.Created();
         }
     }

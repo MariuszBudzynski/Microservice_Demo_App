@@ -13,14 +13,8 @@ namespace DemoMS.Service.Repository.InMemory.UseCases
             _inMemoryData = inMemoryData;
         }
 
-        //public IEnumerable<ItemDto> Execute()
-        //{
-        //    return (_inMemoryData.GetAllData()).ToList();
-        //}
-
         public IResult Execute()
         {
-            // return (_inMemoryData.GetAllData()).ToList();
             return Results.Ok(_inMemoryData.GetAllData());
         }
     }

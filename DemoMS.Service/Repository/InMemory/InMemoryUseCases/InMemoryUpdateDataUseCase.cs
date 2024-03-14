@@ -1,7 +1,6 @@
 ﻿using DemoMS.Service.DTOS;
 using DemoMS.Service.Repository.InMemory.InMemoryRepository.Interface;
 using DemoMS.Service.Repository.InMemory.InMemoryUseCases.Interfaces;
-using System.Security.Claims;
 
 namespace DemoMS.Service.Repository.InMemory.UseCases
 {
@@ -24,7 +23,7 @@ namespace DemoMS.Service.Repository.InMemory.UseCases
             }
             else
             {
-                _inMemoryData.UpdataData(id, item );
+                _inMemoryData.UpdateData(id, item );
                 return Results.NoContent();
             }
         }
