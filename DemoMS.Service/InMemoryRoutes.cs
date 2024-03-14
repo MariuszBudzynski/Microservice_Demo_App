@@ -35,7 +35,8 @@ namespace DemoMS.Service
 
             });
 
-            app.MapPut("/items{id}", (IValidator<UpdateItemDTO> validator, Guid id,UpdateItemDTO item, IInMemoryUpdateDataUseCase<UpdateItemDTO> inMemoryUpdateDataUseCase) =>
+            app.MapPut("/items/{id}", (IValidator<UpdateItemDTO> validator, Guid id,UpdateItemDTO item,
+                                      IInMemoryUpdateDataUseCase<UpdateItemDTO> inMemoryUpdateDataUseCase) =>
             {
                 var validation = validator.Validate(item);
                 if (validation.IsValid)
@@ -46,7 +47,7 @@ namespace DemoMS.Service
                 return Results.ValidationProblem(validation.ToDictionary());
             });
 
-            app.MapDelete("/items{id}", (Guid id, IInMemoryDeleteDataUseCase<ItemDto> inMemoryDeleteDataUseCase) =>
+            app.MapDelete("/items/{id}", (Guid id, IInMemoryDeleteDataUseCase<ItemDto> inMemoryDeleteDataUseCase) =>
             {
                 return inMemoryDeleteDataUseCase.Execute(id);
             });
