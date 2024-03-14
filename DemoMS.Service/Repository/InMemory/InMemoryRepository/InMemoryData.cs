@@ -36,7 +36,7 @@ namespace DemoMS.Service.Repository.InMemory.InMemoryRepository
         public void UpdateData(Guid id, UpdateItemDTO item)
         {
             var itemToBeRemoved = GetDataByID(id);
-            ItemDto updatedItemDto = new(itemToBeRemoved.Id, item.Name, item.Description, item.price, DateTimeOffset.UtcNow);
+            ItemDto updatedItemDto = new(itemToBeRemoved.Id, item.Name, item.Description, item.Price, DateTimeOffset.UtcNow);
 
             itemDtos.Remove(itemToBeRemoved);
             itemDtos.Add(updatedItemDto);

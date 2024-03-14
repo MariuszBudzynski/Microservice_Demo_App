@@ -1,4 +1,6 @@
 using DemoMS.Service;
+using DemoMS.Service.Validators;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//adding custom validation configuration
+builder.Services.AddValidatorsFromAssemblyContaining(typeof(CreatedItemDtoValidator));
+
 InMemoryServicesRegistration.RegisterServices(builder.Services);
 
 var app = builder.Build();
