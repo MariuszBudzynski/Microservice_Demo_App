@@ -1,5 +1,5 @@
 ﻿using DemoMS.Service.DTOS;
-using DemoMS.Service.Repository.InMemory.InMemoryRepository.Interface;
+using DemoMS.Service.Repository.InMemory.InMemoryRepository.Interfaces;
 
 namespace DemoMS.Service.Repository.InMemory.InMemoryRepository
 {

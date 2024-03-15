@@ -1,6 +1,6 @@
 ﻿using DemoMS.Service.DTOS;
 using DemoMS.Service.Repository.InMemory.InMemoryRepository;
-using DemoMS.Service.Repository.InMemory.InMemoryRepository.Interface;
+using DemoMS.Service.Repository.InMemory.InMemoryRepository.Interfaces;
 using DemoMS.Service.Repository.InMemory.InMemoryUseCases.Interfaces;
 using DemoMS.Service.Repository.InMemory.UseCases;
 using DemoMS.Service.Repository.InMemory.UseCases.Interfaces;

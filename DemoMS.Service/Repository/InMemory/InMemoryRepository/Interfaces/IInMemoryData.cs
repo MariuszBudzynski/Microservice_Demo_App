@@ -1,4 +1,4 @@
-﻿namespace DemoMS.Service.Repository.InMemory.InMemoryRepository.Interface
+﻿namespace DemoMS.Service.Repository.InMemory.InMemoryRepository.Interfaces
 {
     public interface IInMemoryData<T,U> where T : class where U : class
     {

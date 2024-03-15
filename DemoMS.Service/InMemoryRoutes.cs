@@ -2,7 +2,6 @@
 using DemoMS.Service.Repository.InMemory.InMemoryUseCases.Interfaces;
 using DemoMS.Service.Repository.InMemory.UseCases.Interfaces;
 using FluentValidation;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DemoMS.Service
 {
