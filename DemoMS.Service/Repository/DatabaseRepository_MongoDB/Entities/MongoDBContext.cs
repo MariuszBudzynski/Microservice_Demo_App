@@ -9,9 +9,9 @@ namespace DemoMS.Service.Repository.DatabaseRepository_MongoDB.Entities
         private const string collectionName = "items";
 
         //represents the actual MongoDb collection
-        private readonly IMongoCollection<Item> dbCollection;
+        public IMongoCollection<Item> ItemsCollection { get; set; }
         //allows to create filters that can be used to search for documents in the MongoDB database.
-        private readonly FilterDefinitionBuilder<Item> filterBuilder = Builders<Item>.Filter;
+        public FilterDefinitionBuilder<Item> FilterBuilderItem{ get; set; }
 
         public MongoDBContext()
         {
@@ -21,6 +21,8 @@ namespace DemoMS.Service.Repository.DatabaseRepository_MongoDB.Entities
             //as well as perform operations such as searching,
             //inserting, updating, and deleting documents.
             var database = mongoClient.GetDatabase("Catalog");
+            ItemsCollection = database.GetCollection<Item>(collectionName);
+            FilterBuilderItem = Builders<Item>.Filter;
         }
     }
 }
