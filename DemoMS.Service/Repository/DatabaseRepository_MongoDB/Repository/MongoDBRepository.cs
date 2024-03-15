@@ -1,12 +1,12 @@
 ﻿using DemoMS.Service.Repository.DatabaseRepository_MongoDB.Entities;
+using DemoMS.Service.Repository.DatabaseRepository_MongoDB.Repository.Interfaces;
 using MongoDB.Driver;
 
 namespace DemoMS.Service.Repository.DatabaseRepository_MongoDB.Repository
 {
-    public class MongoDBRepository
+    public class MongoDBRepository : IMongoDBRepository<Item>
     {
         private readonly MongoDBContext _db;
-       
 
         public MongoDBRepository(MongoDBContext mongoDBContext)
         {
@@ -16,19 +16,30 @@ namespace DemoMS.Service.Repository.DatabaseRepository_MongoDB.Repository
         public async Task<IReadOnlyCollection<Item>> GetAllDataAsync()
         {
             var filter = _db.FilterBuilderItem.Empty;
-            var items = await _db.ItemsCollection.Find(filter).ToListAsync();
-            return items;
+            return await _db.ItemsCollection.Find(filter).ToListAsync();
         }
 
         public async Task<Item> GetDataByIDAsync(Guid id)
         {
-            var filter = _db.FilterBuilderItem.Eq(entity =>entity.Id,id);
+            var filter = _db.FilterBuilderItem.Eq(entity => entity.Id, id);
             return await _db.ItemsCollection.Find(filter).FirstOrDefaultAsync();
         }
 
         public async Task AddDataAsync(Item item)
         {
+            await _db.ItemsCollection.InsertOneAsync(item);
+        }
 
+        public async Task UpdateDataAsync(Item item)
+        {
+            var filter = _db.FilterBuilderItem.Eq(entity => entity.Id, item.Id);
+            await _db.ItemsCollection.ReplaceOneAsync(filter, item);
+        }
+
+        public async Task DeleteDataAsync(Guid id)
+        {
+            var filter = _db.FilterBuilderItem.Eq(entity => entity.Id, id);
+            await _db.ItemsCollection.DeleteOneAsync(filter);
         }
     }
 }
