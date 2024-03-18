@@ -30,9 +30,9 @@ namespace DemoMS.Service.Repository.DatabaseRepository_MongoDB.Repository
             await _db.ItemsCollection.InsertOneAsync(item);
         }
 
-        public async Task UpdateDataAsync(Item item)
+        public async Task UpdateDataAsync(Item item,Guid id)
         {
-            var filter = _db.FilterBuilderItem.Eq(entity => entity.Id, item.Id);
+            var filter = _db.FilterBuilderItem.Eq(entity => entity.Id, id);
             await _db.ItemsCollection.ReplaceOneAsync(filter, item);
         }
 

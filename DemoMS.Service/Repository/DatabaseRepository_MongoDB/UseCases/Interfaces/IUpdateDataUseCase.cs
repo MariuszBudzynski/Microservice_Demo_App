@@ -2,6 +2,6 @@
 {
     public interface IUpdateDataUseCase<T> where T : class
     {
-        Task<IResult> ExecuteAsync(T item);
+        Task<IResult> ExecuteAsync(T item,Guid id);
     }
 }

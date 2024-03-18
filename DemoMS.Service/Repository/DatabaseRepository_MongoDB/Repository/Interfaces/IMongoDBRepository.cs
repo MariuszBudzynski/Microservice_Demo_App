@@ -6,6 +6,6 @@
         Task DeleteDataAsync(Guid id);
         Task<IReadOnlyCollection<T>> GetAllDataAsync();
         Task<T> GetDataByIDAsync(Guid id);
-        Task UpdateDataAsync(T item);
+        Task UpdateDataAsync(T item, Guid id);
     }
 }

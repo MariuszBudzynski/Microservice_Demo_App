@@ -13,7 +13,7 @@ namespace DemoMS.Service.Repository.DatabaseRepository_MongoDB.UseCases
             _dBRepository = dBRepository;
         }
 
-        public async Task<IResult> ExecuteAsync(Item item)
+        public async Task<IResult> ExecuteAsync(Item item,Guid id)
         {
             if (item == null)
             {
@@ -21,7 +21,7 @@ namespace DemoMS.Service.Repository.DatabaseRepository_MongoDB.UseCases
             }
             else
             {
-                await _dBRepository.UpdateDataAsync(item);
+                await _dBRepository.UpdateDataAsync(item,id);
                 return Results.Ok();
             }
         }

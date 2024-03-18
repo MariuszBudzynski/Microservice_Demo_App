@@ -22,16 +22,14 @@ namespace DemoMS.Service
 
             app.MapPost("/items", async (IValidator<CreatedItemDto> validator, CreatedItemDto item, IAddDataUseCase<Item> addDataUseCase) =>
             {
-                //i am not using async version here , the async will be used in normal DB implementation
-                //setting up custom validation
                 var validation = validator.Validate(item);
 
                 if (validation.IsValid)
                 {
-                   await addDataUseCase.ExecuteAsync(item.CreatedItemDtoToItem());
-                }
-
-                return Results.ValidationProblem(validation.ToDictionary());
+                   return await addDataUseCase.ExecuteAsync(item.CreatedItemDtoToItem());
+                } 
+                
+                else return Results.ValidationProblem(validation.ToDictionary());
 
             });
 
@@ -41,10 +39,10 @@ namespace DemoMS.Service
                 var validation = validator.Validate(item);
                 if (validation.IsValid)
                 {
-                   await updateDataUseCase.ExecuteAsync(item.UpdateddItemDtoToItem());
+                   return await updateDataUseCase.ExecuteAsync(item.UpdateddItemDtoToItem(id),id);
                 }
-
-                return Results.ValidationProblem(validation.ToDictionary());
+                
+                else  return Results.ValidationProblem(validation.ToDictionary());
             });
 
             app.MapDelete("/items/{id}", async (Guid id, IDeleteDataUseCase deleteDataUseCase) =>
