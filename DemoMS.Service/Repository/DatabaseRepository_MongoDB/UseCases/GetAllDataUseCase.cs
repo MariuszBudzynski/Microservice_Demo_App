@@ -1,4 +1,5 @@
-﻿using DemoMS.Service.Repository.DatabaseRepository_MongoDB.Entities;
+﻿using DemoMS.Service.Extensions;
+using DemoMS.Service.Repository.DatabaseRepository_MongoDB.Entities;
 using DemoMS.Service.Repository.DatabaseRepository_MongoDB.Repository.Interfaces;
 using DemoMS.Service.Repository.DatabaseRepository_MongoDB.UseCases.Interfaces;
 
@@ -13,9 +14,9 @@ namespace DemoMS.Service.Repository.DatabaseRepository_MongoDB.UseCases
             _dBRepository = dBRepository;
         }
 
-        public async Task<IResult> ExecuteAsync(Guid id)
+        public async Task<IResult> ExecuteAsync()
         {
-            var data = await _dBRepository.GetAllDataAsync();
+            var data = (await _dBRepository.GetAllDataAsync()).Select(item=>item.ItemToItemDTO());
             return Results.Ok(data);
         }
     }

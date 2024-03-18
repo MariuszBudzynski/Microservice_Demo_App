@@ -2,6 +2,6 @@
 {
     public interface IGetAllDataUseCase
     {
-        Task<IResult> ExecuteAsync(Guid id);
+        Task<IResult> ExecuteAsync();
     }
 }

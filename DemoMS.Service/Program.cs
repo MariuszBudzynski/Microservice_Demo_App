@@ -14,7 +14,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddValidatorsFromAssemblyContaining(typeof(CreatedItemDtoValidator));
 builder.Services.AddValidatorsFromAssemblyContaining(typeof(UpdatedItemDtoValidator));
 
-InMemoryServicesRegistration.RegisterServices(builder.Services);
+//InMemoryServicesRegistration.RegisterServices(builder.Services);
+ServicesRegistration.RegisterServices(builder.Services);
 
 var app = builder.Build();
 
@@ -27,6 +28,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-InMemoryRoutes.ConfigureInMemoryRoutes(app);
+//InMemoryRoutes.ConfigureInMemoryRoutes(app);
+Routes.ConfigureRoutes(app);
+
 
 app.Run();

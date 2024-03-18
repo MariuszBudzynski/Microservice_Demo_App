@@ -1,4 +1,5 @@
-﻿using DemoMS.Service.Repository.DatabaseRepository_MongoDB.Entities;
+﻿using DemoMS.Service.Extensions;
+using DemoMS.Service.Repository.DatabaseRepository_MongoDB.Entities;
 using DemoMS.Service.Repository.DatabaseRepository_MongoDB.Repository.Interfaces;
 using DemoMS.Service.Repository.DatabaseRepository_MongoDB.UseCases.Interfaces;
 
@@ -20,7 +21,7 @@ namespace DemoMS.Service.Repository.DatabaseRepository_MongoDB.UseCases
             {
                 return Results.NotFound("No data found");
             }
-            else return Results.Ok(data);
+            else return Results.Ok(data.ItemToItemDTO());
         }
     }
 }
