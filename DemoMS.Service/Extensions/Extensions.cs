@@ -21,7 +21,7 @@ namespace DemoMS.Service.Extensions
             };
         }
 
-        public static Item UpdateddItemDtoToItem(this UpdateItemDTO createdItemDto,Guid id)
+        public static Item UpdateItemDtoToItem(this UpdateItemDTO createdItemDto,Guid id)
         {
             return new Item()
             {

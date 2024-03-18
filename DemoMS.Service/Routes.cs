@@ -39,7 +39,7 @@ namespace DemoMS.Service
                 var validation = validator.Validate(item);
                 if (validation.IsValid)
                 {
-                   return await updateDataUseCase.ExecuteAsync(item.UpdateddItemDtoToItem(id),id);
+                   return await updateDataUseCase.ExecuteAsync(item.UpdateItemDtoToItem(id),id);
                 }
                 
                 else  return Results.ValidationProblem(validation.ToDictionary());
