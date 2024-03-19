@@ -11,13 +11,20 @@ namespace DemoMS.Service
 {
     public static class ServicesRegistration
     {
-        public static void RegisterServices(this IServiceCollection services)
+        public static void RegisterServices(this IServiceCollection services, string mongoConnectionString)
         {
             // Mongo DB conversion to redable format
             BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
             BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));
 
-            services.AddScoped<MongoDBContext>();
+            //configuring MongoDB to use the connection string inside the appsettings
+            services.AddScoped(provider =>
+            {
+                var context = new MongoDBContext(mongoConnectionString);
+                return context;
+            });
+
+            //services.AddScoped<MongoDBContext>();
             services.AddScoped<IMongoDBRepository<Item>,MongoDBRepository>();
             services.AddScoped<IAddDataUseCase<Item>, AddDataUseCase>();
             services.AddScoped<IGetDataByIDUseCase, GetDataByIDUseCase>();

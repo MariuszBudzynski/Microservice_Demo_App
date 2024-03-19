@@ -4,6 +4,11 @@ using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Load configuration for MongoDB support
+var configuration = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json")
+    .Build();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -12,7 +17,7 @@ builder.Services.AddValidatorsFromAssemblyContaining(typeof(CreatedItemDtoValida
 builder.Services.AddValidatorsFromAssemblyContaining(typeof(UpdatedItemDtoValidator));
 
 //InMemoryServicesRegistration.RegisterServices(builder.Services);
-ServicesRegistration.RegisterServices(builder.Services);
+ServicesRegistration.RegisterServices(builder.Services,configuration.GetConnectionString("MongoDBConnection"));
 
 var app = builder.Build();
 

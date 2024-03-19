@@ -13,10 +13,9 @@ namespace DemoMS.Service.Repository.DatabaseRepository_MongoDB.Entities
         //allows to create filters that can be used to search for documents in the MongoDB database.
         public FilterDefinitionBuilder<Item> FilterBuilderItem{ get; set; }
 
-        public MongoDBContext()
+        public MongoDBContext(string connectionString)
         {
             //Used to connect to the MongoDB server
-            var connectionString = "mongodb+srv://<cluster-address>/<database-name>?retryWrites=true&w=majority&ssl=true&sslCAFile=<path-to-certificate>"; // replace data to properly connect to configured Mongo DB
             var mongoClient = new MongoClient(connectionString);
             //used to access collections in a database,
             //as well as perform operations such as searching,
