@@ -3,6 +3,9 @@ using DemoMS.Service.Repository.DatabaseRepository_MongoDB.Repository;
 using DemoMS.Service.Repository.DatabaseRepository_MongoDB.Repository.Interfaces;
 using DemoMS.Service.Repository.DatabaseRepository_MongoDB.UseCases;
 using DemoMS.Service.Repository.DatabaseRepository_MongoDB.UseCases.Interfaces;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Bson;
 
 namespace DemoMS.Service
 {
@@ -10,6 +13,10 @@ namespace DemoMS.Service
     {
         public static void RegisterServices(this IServiceCollection services)
         {
+            // Mongo DB conversion to redable format
+            BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
+            BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));
+
             services.AddScoped<MongoDBContext>();
             services.AddScoped<IMongoDBRepository<Item>,MongoDBRepository>();
             services.AddScoped<IAddDataUseCase<Item>, AddDataUseCase>();
