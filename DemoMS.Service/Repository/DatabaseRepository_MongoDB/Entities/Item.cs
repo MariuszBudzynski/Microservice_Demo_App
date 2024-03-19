@@ -1,6 +1,8 @@
-﻿namespace DemoMS.Service.Repository.DatabaseRepository_MongoDB.Entities
+﻿using DemoMS.Service.Catalog.Repository.DatabaseRepository_MongoDB.Entities.Interfaces;
+
+namespace DemoMS.Service.Repository.DatabaseRepository_MongoDB.Entities
 {
-    public class Item
+    public class Item : IEntity
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

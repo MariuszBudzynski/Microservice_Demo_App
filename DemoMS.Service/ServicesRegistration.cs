@@ -20,12 +20,12 @@ namespace DemoMS.Service
             //configuring MongoDB to use the connection string inside the appsettings
             services.AddScoped(provider =>
             {
-                var context = new MongoDBContext(mongoConnectionString);
+                var context = new MongoDBContext<Item>(mongoConnectionString);
                 return context;
             });
 
             //services.AddScoped<MongoDBContext>();
-            services.AddScoped<IMongoDBRepository<Item>,MongoDBRepository>();
+            services.AddScoped<IMongoDBRepository<Item>,MongoDBRepository<Item>>();
             services.AddScoped<IAddDataUseCase<Item>, AddDataUseCase>();
             services.AddScoped<IGetDataByIDUseCase, GetDataByIDUseCase>();
             services.AddScoped<IGetAllDataUseCase, GetAllDataUseCase>();
