@@ -1,15 +1,14 @@
-﻿using DemoMS.Service.Extensions;
-using DemoMS.Service.Repository.DatabaseRepository_MongoDB.Entities;
+﻿using DemoMS.Service.Catalog.Repository.DatabaseRepository_MongoDB.Entities.Interfaces;
 using DemoMS.Service.Repository.DatabaseRepository_MongoDB.Repository.Interfaces;
 using DemoMS.Service.Repository.DatabaseRepository_MongoDB.UseCases.Interfaces;
 
 namespace DemoMS.Service.Repository.DatabaseRepository_MongoDB.UseCases
 {
-    public class GetDataByIDUseCase : IGetDataByIDUseCase
+    public class GetDataByIDUseCase<T> : IGetDataByIDUseCase where T : IEntity
     {
-        private readonly IMongoDBRepository<Item> _dBRepository;
+        private readonly IMongoDBRepository<T> _dBRepository;
 
-        public GetDataByIDUseCase(IMongoDBRepository<Item> dBRepository)
+        public GetDataByIDUseCase(IMongoDBRepository<T> dBRepository)
         {
             _dBRepository = dBRepository;
         }
@@ -21,7 +20,8 @@ namespace DemoMS.Service.Repository.DatabaseRepository_MongoDB.UseCases
             {
                 return Results.NotFound("No data found");
             }
-            else return Results.Ok(data.ItemToItemDTO());
+            else return Results.Ok(data);
+
         }
     }
 }

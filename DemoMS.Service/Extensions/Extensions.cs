@@ -5,11 +5,6 @@ namespace DemoMS.Service.Extensions
 {
     public static class Extensions
     {
-        public static ItemDto ItemToItemDTO(this Item item)
-        {
-            return new ItemDto(item.Id,item.Name,item.Description,item.Price,item.CreatedDate);
-        }
-
         public static Item CreatedItemDtoToItem(this CreatedItemDto createdItemDto)
         {
             return new Item()
@@ -32,5 +27,6 @@ namespace DemoMS.Service.Extensions
                 CreatedDate = DateTimeOffset.Now
             };
         }
+
     }
 }

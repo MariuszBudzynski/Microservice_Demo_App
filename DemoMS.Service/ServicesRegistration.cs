@@ -6,6 +6,8 @@ using DemoMS.Service.Repository.DatabaseRepository_MongoDB.UseCases.Interfaces;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Bson;
+using DemoMS.Service.DTOS;
+using DemoMS.Service.Catalog.Repository.DatabaseRepository_MongoDB.Entities.Interfaces;
 
 namespace DemoMS.Service
 {
@@ -24,12 +26,13 @@ namespace DemoMS.Service
                 return context;
             });
 
+
             services.AddScoped<IMongoDBRepository<Item>,MongoDBRepository<Item>>();
             services.AddScoped<IAddDataUseCase<Item>, AddDataUseCase<Item>>();
-            services.AddScoped<IGetDataByIDUseCase, GetDataByIDUseCase>();
-            services.AddScoped<IGetAllDataUseCase, GetAllDataUseCase>();
+            services.AddScoped<IGetDataByIDUseCase, GetDataByIDUseCase<Item>>();
+            services.AddScoped<IGetAllDataUseCase, GetAllDataUseCase<Item>>();
             services.AddScoped<IUpdateDataUseCase<Item>, UpdateDataUseCase<Item>>();
-            services.AddScoped<IDeleteDataUseCase, DeleteDataUseCase>();
+            services.AddScoped<IDeleteDataUseCase, DeleteDataUseCase<Item>>();
 
         }
     }

@@ -1,14 +1,15 @@
-﻿using DemoMS.Service.Repository.DatabaseRepository_MongoDB.Entities;
+﻿using DemoMS.Service.Catalog.Repository.DatabaseRepository_MongoDB.Entities.Interfaces;
+using DemoMS.Service.Repository.DatabaseRepository_MongoDB.Entities;
 using DemoMS.Service.Repository.DatabaseRepository_MongoDB.Repository.Interfaces;
 using DemoMS.Service.Repository.DatabaseRepository_MongoDB.UseCases.Interfaces;
 
 namespace DemoMS.Service.Repository.DatabaseRepository_MongoDB.UseCases
 {
-    public class DeleteDataUseCase : IDeleteDataUseCase
+    public class DeleteDataUseCase<T> : IDeleteDataUseCase where T : IEntity
     {
-        private readonly IMongoDBRepository<Item> _dBRepository;
+        private readonly IMongoDBRepository<T> _dBRepository;
 
-        public DeleteDataUseCase(IMongoDBRepository<Item> dBRepository)
+        public DeleteDataUseCase(IMongoDBRepository<T> dBRepository)
         {
             _dBRepository = dBRepository;
         }
