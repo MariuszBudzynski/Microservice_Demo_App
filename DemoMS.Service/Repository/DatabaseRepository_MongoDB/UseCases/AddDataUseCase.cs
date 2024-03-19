@@ -1,19 +1,19 @@
-﻿using DemoMS.Service.Repository.DatabaseRepository_MongoDB.Entities;
+﻿using DemoMS.Service.Catalog.Repository.DatabaseRepository_MongoDB.Entities.Interfaces;
 using DemoMS.Service.Repository.DatabaseRepository_MongoDB.Repository.Interfaces;
 using DemoMS.Service.Repository.DatabaseRepository_MongoDB.UseCases.Interfaces;
 
 namespace DemoMS.Service.Repository.DatabaseRepository_MongoDB.UseCases
 {
-    public class AddDataUseCase : IAddDataUseCase<Item>
+    public class AddDataUseCase<T> : IAddDataUseCase<T> where T : IEntity
     {
-        private readonly IMongoDBRepository<Item> _dBRepository;
+        private readonly IMongoDBRepository<T> _dBRepository;
 
-        public AddDataUseCase(IMongoDBRepository<Item> dBRepository)
+        public AddDataUseCase(IMongoDBRepository<T> dBRepository)
         {
             _dBRepository = dBRepository;
         }
 
-        public async Task<IResult> ExecuteAsync(Item item)
+        public async Task<IResult> ExecuteAsync(T item)
         {
             await _dBRepository.AddDataAsync(item);
             return Results.Ok(item);

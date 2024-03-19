@@ -24,12 +24,11 @@ namespace DemoMS.Service
                 return context;
             });
 
-            //services.AddScoped<MongoDBContext>();
             services.AddScoped<IMongoDBRepository<Item>,MongoDBRepository<Item>>();
-            services.AddScoped<IAddDataUseCase<Item>, AddDataUseCase>();
+            services.AddScoped<IAddDataUseCase<Item>, AddDataUseCase<Item>>();
             services.AddScoped<IGetDataByIDUseCase, GetDataByIDUseCase>();
             services.AddScoped<IGetAllDataUseCase, GetAllDataUseCase>();
-            services.AddScoped<IUpdateDataUseCase<Item>, UpdateDataUseCase>();
+            services.AddScoped<IUpdateDataUseCase<Item>, UpdateDataUseCase<Item>>();
             services.AddScoped<IDeleteDataUseCase, DeleteDataUseCase>();
 
         }

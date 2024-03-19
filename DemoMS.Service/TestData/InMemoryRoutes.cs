@@ -3,7 +3,7 @@ using DemoMS.Service.Repository.InMemory.InMemoryUseCases.Interfaces;
 using DemoMS.Service.Repository.InMemory.UseCases.Interfaces;
 using FluentValidation;
 
-namespace DemoMS.Service
+namespace DemoMS.Service.Catalog.TestData
 {
     public static class InMemoryRoutes
     {
@@ -34,7 +34,7 @@ namespace DemoMS.Service
 
             });
 
-            app.MapPut("/items/{id}", (IValidator<UpdateItemDTO> validator, Guid id,UpdateItemDTO item,
+            app.MapPut("/items/{id}", (IValidator<UpdateItemDTO> validator, Guid id, UpdateItemDTO item,
                                       IInMemoryUpdateDataUseCase<UpdateItemDTO> inMemoryUpdateDataUseCase) =>
             {
                 var validation = validator.Validate(item);

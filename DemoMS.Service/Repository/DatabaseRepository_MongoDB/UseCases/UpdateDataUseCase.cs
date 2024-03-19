@@ -1,19 +1,19 @@
-﻿using DemoMS.Service.Repository.DatabaseRepository_MongoDB.Entities;
+﻿using DemoMS.Service.Catalog.Repository.DatabaseRepository_MongoDB.Entities.Interfaces;
 using DemoMS.Service.Repository.DatabaseRepository_MongoDB.Repository.Interfaces;
 using DemoMS.Service.Repository.DatabaseRepository_MongoDB.UseCases.Interfaces;
 
 namespace DemoMS.Service.Repository.DatabaseRepository_MongoDB.UseCases
 {
-    public class UpdateDataUseCase : IUpdateDataUseCase<Item>
+    public class UpdateDataUseCase<T> : IUpdateDataUseCase<T> where T : IEntity
     {
-        private readonly IMongoDBRepository<Item> _dBRepository;
+        private readonly IMongoDBRepository<T> _dBRepository;
 
-        public UpdateDataUseCase(IMongoDBRepository<Item> dBRepository)
+        public UpdateDataUseCase(IMongoDBRepository<T> dBRepository)
         {
             _dBRepository = dBRepository;
         }
 
-        public async Task<IResult> ExecuteAsync(Item item,Guid id)
+        public async Task<IResult> ExecuteAsync(T item,Guid id)
         {
             if (item == null)
             {
