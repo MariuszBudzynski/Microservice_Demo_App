@@ -1,0 +1,12 @@
+﻿global using MongoDB.Bson.Serialization;
+global using MongoDB.Bson.Serialization.Serializers;
+global using MongoDB.Bson;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Configuration;
+global using DemoMS.Service.Common.Configuration;
+global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.Entities;
+global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.Entities.Interfaces;
+global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.Interfaces;
+global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.UseCases.Interfaces;
+global using Microsoft.AspNetCore.Http;
+global using MongoDB.Driver;

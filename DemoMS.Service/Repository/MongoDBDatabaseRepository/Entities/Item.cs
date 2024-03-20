@@ -1,6 +1,4 @@
-﻿using DemoMS.Service.Catalog.Repository.DatabaseRepository_MongoDB.Entities.Interfaces;
-
-namespace DemoMS.Service.Repository.DatabaseRepository_MongoDB.Entities
+﻿namespace DemoMS.Service.Repository.DatabaseRepository_MongoDB.Entities
 {
     public class Item : IEntity
     {

@@ -1,4 +1,4 @@
-﻿namespace DemoMS.Service.Repository.DatabaseRepository_MongoDB.UseCases
+﻿namespace DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.UseCases
 {
     public class GetAllDataUseCase<T> : IGetAllDataUseCase where T : IEntity
     {

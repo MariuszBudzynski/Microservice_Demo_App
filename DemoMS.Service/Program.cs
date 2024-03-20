@@ -1,7 +1,3 @@
-using DemoMS.Service;
-using DemoMS.Service.Validators;
-using FluentValidation;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Load configuration for MongoDB support

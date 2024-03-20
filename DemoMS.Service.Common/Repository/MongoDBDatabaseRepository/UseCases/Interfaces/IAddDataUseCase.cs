@@ -1,4 +1,4 @@
-﻿namespace DemoMS.Service.Repository.DatabaseRepository_MongoDB.UseCases.Interfaces
+﻿namespace DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.UseCases.Interfaces
 {
     public interface IAddDataUseCase<T> where T : IEntity
     {

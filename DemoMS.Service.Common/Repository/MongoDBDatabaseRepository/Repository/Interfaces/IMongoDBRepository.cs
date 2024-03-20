@@ -1,4 +1,4 @@
-﻿namespace DemoMS.Service.Repository.DatabaseRepository_MongoDB.Repository.Interfaces
+﻿namespace DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.Interfaces
 {
     public interface IMongoDBRepository<T> where T : IEntity
     {

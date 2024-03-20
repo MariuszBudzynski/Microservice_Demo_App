@@ -1,7 +1,4 @@
-﻿using DemoMS.Service.DTOS;
-using DemoMS.Service.Repository.DatabaseRepository_MongoDB.Entities;
-
-namespace DemoMS.Service.Extensions
+﻿namespace DemoMS.Service.Extensions
 {
     public static class Extensions
     {

@@ -1,0 +1,16 @@
+﻿global using MongoDB.Bson.Serialization;
+global using MongoDB.Bson.Serialization.Serializers;
+global using MongoDB.Bson;
+global using MongoDB.Driver;
+global using DemoMS.Service.DTOS;
+global using DemoMS.Service.Repository.DatabaseRepository_MongoDB.Entities;
+global using DemoMS.Service.Catalog.Repository.DatabaseRepository_MongoDB.Entities.Interfaces;
+global using DemoMS.Service.Repository.DatabaseRepository_MongoDB.Repository.Interfaces;
+global using DemoMS.Service.Repository.DatabaseRepository_MongoDB.UseCases.Interfaces;
+global using FluentValidation;
+global using DemoMS.Service.Extensions;
+global using DemoMS.Service.Repository.DatabaseRepository_MongoDB.Repository;
+global using DemoMS.Service.Repository.DatabaseRepository_MongoDB.UseCases;
+global using DemoMS.Service.Catalog.Configuration;
+global using DemoMS.Service;
+global using DemoMS.Service.Validators;

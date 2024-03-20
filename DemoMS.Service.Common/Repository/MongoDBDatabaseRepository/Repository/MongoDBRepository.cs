@@ -1,4 +1,4 @@
-﻿namespace DemoMS.Service.Repository.DatabaseRepository_MongoDB.Repository
+﻿namespace DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.Repository
 {
     public class MongoDBRepository<T> : IMongoDBRepository<T> where T : IEntity
     {

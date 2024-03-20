@@ -1,4 +1,4 @@
-﻿namespace DemoMS.Service.Repository.DatabaseRepository_MongoDB.UseCases
+﻿namespace DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.UseCases
 {
     public class DeleteDataUseCase<T> : IDeleteDataUseCase where T : IEntity
     {
@@ -22,7 +22,6 @@
                 await _dBRepository.DeleteDataAsync(id);
                 return Results.Ok();
             }
-
         }
 
 

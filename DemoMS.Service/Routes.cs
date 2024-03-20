@@ -1,10 +1,4 @@
-﻿using DemoMS.Service.DTOS;
-using DemoMS.Service.Extensions;
-using DemoMS.Service.Repository.DatabaseRepository_MongoDB.Entities;
-using DemoMS.Service.Repository.DatabaseRepository_MongoDB.UseCases.Interfaces;
-using FluentValidation;
-
-namespace DemoMS.Service
+﻿namespace DemoMS.Service
 {
     public static class Routes
     {
