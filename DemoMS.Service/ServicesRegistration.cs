@@ -6,8 +6,6 @@ using DemoMS.Service.Repository.DatabaseRepository_MongoDB.UseCases.Interfaces;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Bson;
-using DemoMS.Service.DTOS;
-using DemoMS.Service.Catalog.Repository.DatabaseRepository_MongoDB.Entities.Interfaces;
 
 namespace DemoMS.Service
 {
@@ -22,7 +20,7 @@ namespace DemoMS.Service
             //configuring MongoDB to use the connection string inside the appsettings
             services.AddScoped(provider =>
             {
-                var context = new MongoDBContext<Item>(mongoConnectionString);
+                var context = new MongoDBContext<Item>(mongoConnectionString,"items", "Catalog");
                 return context;
             });
 
