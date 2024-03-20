@@ -6,13 +6,19 @@ using DemoMS.Service.Repository.DatabaseRepository_MongoDB.UseCases.Interfaces;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Bson;
+using DemoMS.Service.Catalog.Configuration;
 
 namespace DemoMS.Service
 {
     public static class ServicesRegistration
     {
-        public static void RegisterServices(this IServiceCollection services, string mongoConnectionString)
+        public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
+
+            var databaseConfiguration = new DatabaseConfiguration(configuration);
+            var connectionString = databaseConfiguration.GetConnectionString();
+            var (collectionName, databaseName) = databaseConfiguration.GetDatabaseSettings();
+
             // Mongo DB conversion to redable format
             BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
             BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));
@@ -20,7 +26,7 @@ namespace DemoMS.Service
             //configuring MongoDB to use the connection string inside the appsettings
             services.AddScoped(provider =>
             {
-                var context = new MongoDBContext<Item>(mongoConnectionString,"items", "Catalog");
+                var context = new MongoDBContext<Item>(connectionString, collectionName, databaseName);
                 return context;
             });
 

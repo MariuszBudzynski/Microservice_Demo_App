@@ -17,7 +17,7 @@ builder.Services.AddValidatorsFromAssemblyContaining(typeof(CreatedItemDtoValida
 builder.Services.AddValidatorsFromAssemblyContaining(typeof(UpdatedItemDtoValidator));
 
 //InMemoryServicesRegistration.RegisterServices(builder.Services);
-ServicesRegistration.RegisterServices(builder.Services,configuration.GetConnectionString("MongoDBConnection"));
+ServicesRegistration.RegisterServices(builder.Services,configuration);
 
 var app = builder.Build();
 
