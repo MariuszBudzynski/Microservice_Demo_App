@@ -1,0 +1,6 @@
+@DemoMS.Service.Inventory_HostAddress = http://localhost:5224
+
+GET {{DemoMS.Service.Inventory_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
