@@ -1,4 +1,5 @@
 ﻿global using MongoDB.Bson.Serialization;
+global using System.Linq.Expressions;
 global using MongoDB.Bson.Serialization.Serializers;
 global using MongoDB.Bson;
 global using Microsoft.Extensions.DependencyInjection;

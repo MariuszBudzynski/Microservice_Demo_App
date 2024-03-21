@@ -15,9 +15,19 @@
             return await _db.ItemsCollection.Find(filter).ToListAsync();
         }
 
+        public async Task<IReadOnlyCollection<T>> GetAllDataAsync(Expression<Func<T, bool>> filter)
+        {
+            return await _db.ItemsCollection.Find(filter).ToListAsync();
+        }
+
         public async Task<T> GetDataByIDAsync(Guid id)
         {
             var filter = _db.FilterBuilderItem.Eq(entity => entity.Id, id);
+            return await _db.ItemsCollection.Find(filter).FirstOrDefaultAsync();
+        }
+
+        public async Task<T> GetDataByIDAsync(Expression<Func<T, bool>> filter)
+        {
             return await _db.ItemsCollection.Find(filter).FirstOrDefaultAsync();
         }
 
