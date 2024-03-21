@@ -4,12 +4,12 @@
     {
         public static void ConfigureRoutes(WebApplication app)
         {
-            app.MapGet("/items", async (IGetAllDataUseCase getAllDataUseCase) =>
+            app.MapGet("/items", async (IGetAllDataUseCase<Item> getAllDataUseCase) =>
             {
                 return await getAllDataUseCase.ExecuteAsync();
             });
 
-            app.MapGet("/items/{id}", async (Guid id, IGetDataByIDUseCase getDataByIDUseCase) =>
+            app.MapGet("/items/{id}", async (Guid id, IGetDataByIDUseCase<Item> getDataByIDUseCase) =>
             {
                 return await getDataByIDUseCase.ExecuteAsync(id);
             });

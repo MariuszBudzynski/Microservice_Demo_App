@@ -1,10 +1,5 @@
-﻿global using MongoDB.Bson.Serialization;
-global using System.Linq.Expressions;
-global using MongoDB.Bson.Serialization.Serializers;
-global using MongoDB.Bson;
-global using Microsoft.Extensions.DependencyInjection;
+﻿global using System.Linq.Expressions;
 global using Microsoft.Extensions.Configuration;
-global using DemoMS.Service.Common.Configuration;
 global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.Entities;
 global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.Entities.Interfaces;
 global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.Interfaces;

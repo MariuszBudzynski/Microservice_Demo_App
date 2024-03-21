@@ -23,8 +23,8 @@
 
             services.AddScoped<IMongoDBRepository<Item>,MongoDBRepository<Item>>();
             services.AddScoped<IAddDataUseCase<Item>, AddDataUseCase<Item>>();
-            services.AddScoped<IGetDataByIDUseCase, GetDataByIDUseCase<Item>>();
-            services.AddScoped<IGetAllDataUseCase, GetAllDataUseCase<Item>>();
+            services.AddScoped<IGetDataByIDUseCase<Item>, GetDataByIDUseCase<Item>>();
+            services.AddScoped<IGetAllDataUseCase<Item>, GetAllDataUseCase<Item>>();
             services.AddScoped<IUpdateDataUseCase<Item>, UpdateDataUseCase<Item>>();
             services.AddScoped<IDeleteDataUseCase, DeleteDataUseCase<Item>>();
 

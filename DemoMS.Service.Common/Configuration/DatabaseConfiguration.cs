@@ -11,7 +11,7 @@
 
         public string GetConnectionString()
         {
-            return _configuration.GetConnectionString("ConnectionStringName");
+            return _configuration.GetConnectionString("MongoDBConnection");
         }
 
         public (string CollectionName, string DatabaseName) GetDatabaseSettings()

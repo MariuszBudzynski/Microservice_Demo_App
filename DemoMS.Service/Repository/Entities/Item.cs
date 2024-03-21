@@ -1,4 +1,4 @@
-﻿namespace DemoMS.Service.Repository.DatabaseRepository_MongoDB.Entities
+﻿namespace DemoMS.Service.Catalog.Repository.Entities
 {
     public class Item : IEntity
     {
