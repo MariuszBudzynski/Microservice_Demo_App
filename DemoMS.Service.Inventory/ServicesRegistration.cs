@@ -1,4 +1,4 @@
-﻿namespace DemoMS.Service
+﻿namespace DemoMS.Service.Inventory
 {
     public static class ServicesRegistration
     {
