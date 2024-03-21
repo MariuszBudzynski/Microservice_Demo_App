@@ -14,17 +14,11 @@
             BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));
 
             //configuring MongoDB to use the connection string inside the appsettings
-
-            //Properly configure later 
-            //services.AddScoped(provider =>
-            //{
-            //    var context = new MongoDBContext<Item>(connectionString, collectionName, databaseName);
-            //    return context;
-            //});
-
-
-            
-
+            services.AddScoped(provider =>
+            {
+                var context = new MongoDBContext<InventoryItem>(connectionString, collectionName, databaseName);
+                return context;
+            });
         }
     }
 }
