@@ -9,26 +9,16 @@
             _dBRepository = dBRepository;
         }
 
-        public async Task<IResult> ExecuteAsync(Guid id)
+        public async Task<T> ExecuteAsync(Guid id)
         {
             var data = await _dBRepository.GetDataByIDAsync(id);
-            if (data == null)
-            {
-                return Results.NotFound("No data found");
-            }
-            else return Results.Ok(data);
-
+            return data;
         }
 
-        public async Task<IResult> ExecuteAsync(Expression<Func<T, bool>> filter)
+        public async Task<T> ExecuteAsync(Expression<Func<T, bool>> filter)
         {
             var data = await _dBRepository.GetDataByIDAsync(filter);
-            if (data == null)
-            {
-                return Results.NotFound("No data found");
-            }
-            else return Results.Ok(data);
-
+            return data;
         }
     }
 }

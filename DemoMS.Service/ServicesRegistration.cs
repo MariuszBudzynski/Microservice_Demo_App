@@ -20,13 +20,13 @@
                 return context;
             });
 
-
+            services.AddScoped<MappData>();
             services.AddScoped<IMongoDBRepository<Item>,MongoDBRepository<Item>>();
             services.AddScoped<IAddDataUseCase<Item>, AddDataUseCase<Item>>();
             services.AddScoped<IGetDataByIDUseCase<Item>, GetDataByIDUseCase<Item>>();
             services.AddScoped<IGetAllDataUseCase<Item>, GetAllDataUseCase<Item>>();
             services.AddScoped<IUpdateDataUseCase<Item>, UpdateDataUseCase<Item>>();
-            services.AddScoped<IDeleteDataUseCase, DeleteDataUseCase<Item>>();
+            services.AddScoped<IDeleteDataUseCase<Item>, DeleteDataUseCase<Item>>();
 
         }
     }

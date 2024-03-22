@@ -2,7 +2,7 @@
 {
     public interface IGetAllDataUseCase<T> where T : IEntity
     {
-        Task<IResult> ExecuteAsync();
-        Task<IResult> ExecuteAsync(Expression<Func<T, bool>> filter);
+        Task<IReadOnlyCollection<T>> ExecuteAsync();
+        Task<IReadOnlyCollection<T>> ExecuteAsync(Expression<Func<T, bool>> filter);
     }
 }

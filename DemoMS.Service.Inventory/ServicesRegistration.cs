@@ -24,8 +24,8 @@
 
             services.AddScoped<IMongoDBRepository<InventoryItem>, MongoDBRepository<InventoryItem>>();
             //services.AddScoped<IAddDataUseCase<Item>, AddDataUseCase<Item>>();
-            //services.AddScoped<IGetDataByIDUseCase<Item>, GetDataByIDUseCase<Item>>();
-            services.AddScoped<IGetAllDataUseCase<InventoryItem>, GetAllDataUseCase<InventoryItem>>();
+            services.AddScoped<IGetDataByIDUseCase<InventoryItem>, GetDataByIDUseCase<InventoryItem>>();
+            //services.AddScoped<IGetAllDataUseCase<InventoryItem>, GetAllDataUseCase<InventoryItem>>();
             //services.AddScoped<IUpdateDataUseCase<Item>, UpdateDataUseCase<Item>>();
             //services.AddScoped<IDeleteDataUseCase, DeleteDataUseCase<Item>>();
         }

@@ -4,23 +4,29 @@
     {
         public static void ConfigureRoutes(WebApplication app)
         {
-            app.MapGet("/items", async (IGetAllDataUseCase<Item> getAllDataUseCase) =>
+            app.MapGet("/items", async (IGetAllDataUseCase<Item> getAllDataUseCase,MappData mapper) =>
             {
-                return await getAllDataUseCase.ExecuteAsync();
+                var items = await getAllDataUseCase.ExecuteAsync();
+                return Results.Ok(mapper.MappToItesmDto(items));
             });
 
-            app.MapGet("/items/{id}", async (Guid id, IGetDataByIDUseCase<Item> getDataByIDUseCase) =>
+            app.MapGet("/items/{id}", async (Guid id,IGetDataByIDUseCase<Item> getDataByIDUseCase, MappData mapper) =>
             {
-                return await getDataByIDUseCase.ExecuteAsync(id);
+                var data = await getDataByIDUseCase.ExecuteAsync(id);
+                var item = mapper.MappToItemDto(data);
+
+                return item == null ? Results.NotFound("No data found") : Results.Ok(item);
             });
 
-            app.MapPost("/items", async (IValidator<CreatedItemDto> validator, CreatedItemDto item, IAddDataUseCase<Item> addDataUseCase) =>
+            app.MapPost("/items", async (IValidator<CreatedItemDto> validator, CreatedItemDto item, IAddDataUseCase<Item> addDataUseCase,MappData mapper) =>
             {
                 var validation = validator.Validate(item);
 
                 if (validation.IsValid)
                 {
-                   return await addDataUseCase.ExecuteAsync(item.CreatedItemDtoToItem());
+                    var mappedItem = mapper.MappToItem(item);
+                    await addDataUseCase.ExecuteAsync(mappedItem);
+                    return Results.Created();
                 } 
                 
                 else return Results.ValidationProblem(validation.ToDictionary());
@@ -28,20 +34,23 @@
             });
 
             app.MapPut("/items/{id}", async (IValidator<UpdateItemDTO> validator, Guid id, UpdateItemDTO item,
-                                      IUpdateDataUseCase<Item> updateDataUseCase) =>
+                                      IUpdateDataUseCase<Item> updateDataUseCase,MappData mapper) =>
             {
                 var validation = validator.Validate(item);
                 if (validation.IsValid)
                 {
-                   return await updateDataUseCase.ExecuteAsync(item.UpdateItemDtoToItem(id),id);
+                    var mappedItem = mapper.MappToItem(item, id);
+                    await updateDataUseCase.ExecuteAsync(mappedItem,id);
+                    return Results.NoContent();
                 }
                 
                 else  return Results.ValidationProblem(validation.ToDictionary());
             });
 
-            app.MapDelete("/items/{id}", async (Guid id, IDeleteDataUseCase deleteDataUseCase) =>
+            app.MapDelete("/items/{id}", async (Guid id, IDeleteDataUseCase<Item> deleteDataUseCase) =>
             {
-                return await deleteDataUseCase.ExecuteAsync(id);
+                var data =  await deleteDataUseCase.ExecuteAsync(id);
+                return data == null ?  Results.NotFound("No item found") : Results.Ok();
             });
         }
     }

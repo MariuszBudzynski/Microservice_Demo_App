@@ -9,16 +9,16 @@
             _dBRepository = dBRepository;
         }
 
-        public async Task<IResult> ExecuteAsync()
+        public async Task<IReadOnlyCollection<T>> ExecuteAsync()
         {
             var data = await _dBRepository.GetAllDataAsync();
-            return Results.Ok(data);
+            return data;
         }
 
-        public async Task<IResult> ExecuteAsync(Expression<Func<T, bool>> filter)
+        public async Task<IReadOnlyCollection<T>> ExecuteAsync(Expression<Func<T, bool>> filter)
         {
             var data = await _dBRepository.GetAllDataAsync(filter);
-            return Results.Ok(data);
+            return data;
         }
     }
 }

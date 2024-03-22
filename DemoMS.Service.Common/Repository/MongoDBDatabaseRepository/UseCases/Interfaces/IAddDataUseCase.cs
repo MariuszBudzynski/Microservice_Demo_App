@@ -2,6 +2,6 @@
 {
     public interface IAddDataUseCase<T> where T : IEntity
     {
-        Task<IResult> ExecuteAsync(T item);
+        Task ExecuteAsync(T item);
     }
 }

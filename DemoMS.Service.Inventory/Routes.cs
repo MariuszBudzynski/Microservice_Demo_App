@@ -4,10 +4,10 @@
     {
         public static void ConfigureRoutes(WebApplication app)
         {
-            app.MapGet("/items", async (IGetAllDataUseCase<InventoryItem> getAllDataUseCase) =>
-            {
-                return await getAllDataUseCase.ExecuteAsync();
-            });
+            //app.MapGet("/items", async (IGetDataByIDUseCase<InventoryItem> getAllDataUseCase,Guid id) =>
+            //{
+            //    return  await getAllDataUseCase.ExecuteAsync(x => x.UserId == id);
+            //});
         }
     }
 }

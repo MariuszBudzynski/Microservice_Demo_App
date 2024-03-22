@@ -1,6 +1,6 @@
 ﻿namespace DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.UseCases
 {
-    public class DeleteDataUseCase<T> : IDeleteDataUseCase where T : IEntity
+    public class DeleteDataUseCase<T> : IDeleteDataUseCase<T> where T : IEntity
     {
         private readonly IMongoDBRepository<T> _dBRepository;
 
@@ -9,18 +9,18 @@
             _dBRepository = dBRepository;
         }
 
-        public async Task<IResult> ExecuteAsync(Guid id)
+        public async Task<T> ExecuteAsync(Guid id)
         {
             var data = await _dBRepository.GetDataByIDAsync(id);
 
             if (data == null)
             {
-                return Results.NotFound("No item found");
+                return data;
             }
             else
             {
                 await _dBRepository.DeleteDataAsync(id);
-                return Results.Ok();
+                return data;
             }
         }
 

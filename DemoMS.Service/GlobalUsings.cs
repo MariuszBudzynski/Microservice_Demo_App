@@ -1,4 +1,5 @@
 ﻿global using MongoDB.Bson.Serialization;
+global using DemoMS.Service.Catalog.Mapper;
 global using MongoDB.Bson.Serialization.Serializers;
 global using MongoDB.Bson;
 global using DemoMS.Service.DTOS;

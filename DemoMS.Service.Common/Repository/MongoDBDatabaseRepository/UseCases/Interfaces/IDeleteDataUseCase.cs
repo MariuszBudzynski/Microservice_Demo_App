@@ -1,7 +1,7 @@
 ﻿namespace DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.UseCases.Interfaces
 {
-    public interface IDeleteDataUseCase
+    public interface IDeleteDataUseCase<T> where T : IEntity
     {
-        Task<IResult> ExecuteAsync(Guid id);
+        Task<T> ExecuteAsync(Guid id);
     }
 }

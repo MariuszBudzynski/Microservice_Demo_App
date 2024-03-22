@@ -9,10 +9,9 @@
             _dBRepository = dBRepository;
         }
 
-        public async Task<IResult> ExecuteAsync(T item)
+        public async Task ExecuteAsync(T item)
         {
             await _dBRepository.AddDataAsync(item);
-            return Results.Ok(item);
         }
     }
 }
