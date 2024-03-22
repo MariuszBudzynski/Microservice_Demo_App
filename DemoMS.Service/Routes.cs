@@ -13,9 +13,12 @@
             app.MapGet("/items/{id}", async (Guid id,IGetDataByIDUseCase<Item> getDataByIDUseCase, MappData mapper) =>
             {
                 var data = await getDataByIDUseCase.ExecuteAsync(id);
-                var item = mapper.MappToItemDto(data);
-
-                return item == null ? Results.NotFound("No data found") : Results.Ok(item);
+                if (data != null)
+                {
+                    var item = mapper.MappToItemDto(data);
+                    return Results.Ok(item);
+                }
+                else return Results.NotFound("No data found");
             });
 
             app.MapPost("/items", async (IValidator<CreatedItemDto> validator, CreatedItemDto item, IAddDataUseCase<Item> addDataUseCase,MappData mapper) =>
@@ -40,8 +43,8 @@
                 if (validation.IsValid)
                 {
                     var mappedItem = mapper.MappToItem(item, id);
-                    await updateDataUseCase.ExecuteAsync(mappedItem,id);
-                    return Results.NoContent();
+                    var data =  await updateDataUseCase.ExecuteAsync(mappedItem,id);
+                    return data == null ? Results.NotFound("No item found") : Results.NoContent();
                 }
                 
                 else  return Results.ValidationProblem(validation.ToDictionary());
