@@ -6,3 +6,4 @@ global using DemoMS.Service.Common.Configuration;
 global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.Entities.Interfaces;
 global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.Entities;
 global using DemoMS.Service.Inventory.Repository.MongoDBDatabaseRepository.Entities;
+global using DemoMS.Service.Inventory.DTOS;
