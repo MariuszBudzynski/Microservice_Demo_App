@@ -19,6 +19,15 @@
                 var context = new MongoDBContext<InventoryItem>(connectionString, collectionName, databaseName);
                 return context;
             });
+
+
+
+            services.AddScoped<IMongoDBRepository<InventoryItem>, MongoDBRepository<InventoryItem>>();
+            //services.AddScoped<IAddDataUseCase<Item>, AddDataUseCase<Item>>();
+            //services.AddScoped<IGetDataByIDUseCase<Item>, GetDataByIDUseCase<Item>>();
+            services.AddScoped<IGetAllDataUseCase<InventoryItem>, GetAllDataUseCase<InventoryItem>>();
+            //services.AddScoped<IUpdateDataUseCase<Item>, UpdateDataUseCase<Item>>();
+            //services.AddScoped<IDeleteDataUseCase, DeleteDataUseCase<Item>>();
         }
     }
 }

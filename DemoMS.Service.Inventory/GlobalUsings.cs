@@ -7,3 +7,8 @@ global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.Entities
 global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.Entities;
 global using DemoMS.Service.Inventory.Repository.MongoDBDatabaseRepository.Entities;
 global using DemoMS.Service.Inventory.DTOS;
+global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.Interfaces;
+global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.Repository;
+global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.UseCases.Interfaces;
+global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.UseCases;
+global using FluentValidation;
