@@ -7,6 +7,7 @@ global using FluentValidation;
 global using DemoMS.Service.Extensions;
 global using DemoMS.Service;
 global using DemoMS.Service.Validators;
+global using DemoMS.Service.Catalog.ResponseHandler;
 global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.UseCases.Interfaces;
 global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.UseCases;
 global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.Entities;
