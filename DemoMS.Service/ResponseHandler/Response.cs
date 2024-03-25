@@ -1,6 +1,6 @@
 ﻿namespace DemoMS.Service.Catalog.ResponseHandler
 {
-    public class ResponseHandler
+    public class Response
     {
         public async Task<IResult> ReturnResultAsync(IGetAllDataUseCase<Item> getAllDataUseCase, MappData mapper)
         {

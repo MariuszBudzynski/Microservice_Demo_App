@@ -23,7 +23,7 @@ namespace DemoMS.Service
             });
 
             services.AddScoped<MappData>();
-            services.AddScoped<ResponseHandler>();
+            services.AddScoped<Response>();
             services.AddScoped<IMongoDBRepository<Item>,MongoDBRepository<Item>>();
             services.AddScoped<IAddDataUseCase<Item>, AddDataUseCase<Item>>();
             services.AddScoped<IGetDataByIDUseCase<Item>, GetDataByIDUseCase<Item>>();
