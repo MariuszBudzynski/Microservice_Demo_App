@@ -15,3 +15,4 @@ global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.Entities
 global using DemoMS.Service.Catalog.Repository.Entities;
 global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.Interfaces;
 global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.Repository;
+global using DemoMS.Service.Common.Extensions;

@@ -1,7 +1,4 @@
-﻿using DemoMS.Service.Catalog.ResponseHandler.Interfaces;
-using DemoMS.Service.Common.Extensions;
-
-namespace DemoMS.Service.Catalog.ResponseHandler
+﻿namespace DemoMS.Service.Catalog.ResponseHandler
 {
     public class Response : IResponse
     {
