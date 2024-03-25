@@ -2,6 +2,7 @@
 {
     public class Response
     {
+        // To DO - extract interface after implementing
         public async Task<IResult> ReturnResultAsync(IGetAllDataUseCase<InventoryItem> getAllDataUseCase, Guid id)
         {
             var data = (await getAllDataUseCase.

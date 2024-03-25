@@ -1,5 +1,6 @@
 ﻿global using MongoDB.Bson.Serialization;
 global using MongoDB.Bson.Serialization.Serializers;
+global using DemoMS.Service.Catalog.ResponseHandler.Interfaces;
 global using MongoDB.Bson;
 global using DemoMS.Service.DTOS;
 global using FluentValidation;
