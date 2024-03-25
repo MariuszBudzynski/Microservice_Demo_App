@@ -11,6 +11,6 @@ global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.Interfac
 global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.Repository;
 global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.UseCases.Interfaces;
 global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.UseCases;
-global using DemoMS.Service.Inventory.Mapper;
 global using DemoMS.Service.Inventory.ResponseHandler;
+global using DemoMS.Service.Common.Extensions;
 global using FluentValidation;
