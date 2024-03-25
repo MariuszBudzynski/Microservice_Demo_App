@@ -1,10 +1,8 @@
 ﻿global using MongoDB.Bson.Serialization;
-global using DemoMS.Service.Catalog.Mapper;
 global using MongoDB.Bson.Serialization.Serializers;
 global using MongoDB.Bson;
 global using DemoMS.Service.DTOS;
 global using FluentValidation;
-global using DemoMS.Service.Extensions;
 global using DemoMS.Service;
 global using DemoMS.Service.Validators;
 global using DemoMS.Service.Catalog.ResponseHandler;

@@ -1,6 +1,4 @@
-﻿using DemoMS.Service.Catalog.ResponseHandler;
-
-namespace DemoMS.Service
+﻿namespace DemoMS.Service
 {
     public static class ServicesRegistration
     {
@@ -22,7 +20,6 @@ namespace DemoMS.Service
                 return context;
             });
 
-            services.AddScoped<MappData>();
             services.AddScoped<Response>();
             services.AddScoped<IMongoDBRepository<Item>,MongoDBRepository<Item>>();
             services.AddScoped<IAddDataUseCase<Item>, AddDataUseCase<Item>>();

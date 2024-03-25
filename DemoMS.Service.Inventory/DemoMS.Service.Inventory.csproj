@@ -7,14 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DemoMS.Service.Common" Version="1.0.1" />
+    <PackageReference Include="DemoMS.Service.SharedCode" Version="1.0.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\DemoMS.Service.Common\DemoMS.Service.Common.csproj" />
   </ItemGroup>
 
 </Project>

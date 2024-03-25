@@ -1,12 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>2.0.0</Version>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<PackageId>DemoMS.Service.SharedCode</PackageId>
+		<Title>DemoMS.Service.SharedCode</Title>
+		<Description>DemoMS.Service.SharedCode</Description>
+		<Version>1.0</Version>
+	</PropertyGroup>
 
   <ItemGroup>
 	<FrameworkReference Include="Microsoft.AspNetCore.App" />
