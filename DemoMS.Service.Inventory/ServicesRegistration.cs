@@ -20,7 +20,7 @@
                 return context;
             });
 
-            services.AddScoped<Response>();
+            services.AddScoped<IResponse,Response>();
             services.AddScoped<IMongoDBRepository<InventoryItem>, MongoDBRepository<InventoryItem>>();
             services.AddScoped<IAddDataUseCase<InventoryItem>, AddDataUseCase<InventoryItem>>();
             services.AddScoped<IGetDataByIDUseCase<InventoryItem>, GetDataByIDUseCase<InventoryItem>>();
