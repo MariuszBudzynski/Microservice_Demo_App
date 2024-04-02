@@ -22,10 +22,10 @@
 
             services.AddScoped<Response>();
             services.AddScoped<IMongoDBRepository<InventoryItem>, MongoDBRepository<InventoryItem>>();
-            //services.AddScoped<IAddDataUseCase<Item>, AddDataUseCase<Item>>();
-            //services.AddScoped<IGetDataByIDUseCase<InventoryItem>, GetDataByIDUseCase<InventoryItem>>();
+            services.AddScoped<IAddDataUseCase<InventoryItem>, AddDataUseCase<InventoryItem>>();
+            services.AddScoped<IGetDataByIDUseCase<InventoryItem>, GetDataByIDUseCase<InventoryItem>>();
             services.AddScoped<IGetAllDataUseCase<InventoryItem>, GetAllDataUseCase<InventoryItem>>();
-            //services.AddScoped<IUpdateDataUseCase<Item>, UpdateDataUseCase<Item>>();
+            services.AddScoped<IUpdateDataUseCase<InventoryItem>, UpdateDataUseCase<InventoryItem>>();
             //services.AddScoped<IDeleteDataUseCase, DeleteDataUseCase<Item>>();
         }
     }
