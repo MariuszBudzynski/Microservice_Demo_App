@@ -2,10 +2,10 @@
 {
     public interface IResponse
     {
-        Task<IResult> ReturnResultAsync(CreatedItemDto item, IAddDataUseCase<Item> addDataUseCase);
-        Task<IResult> ReturnResultAsync(Guid id, IDeleteDataUseCase<Item> deleteDataUseCase);
-        Task<IResult> ReturnResultAsync(Guid id, IGetDataByIDUseCase<Item> getDataByIDUseCase);
-        Task<IResult> ReturnResultAsync(Guid id, UpdateItemDTO item, IUpdateDataUseCase<Item> updateDataUseCase);
-        Task<IResult> ReturnResultAsync(IGetAllDataUseCase<Item> getAllDataUseCase);
+        Task<IResult> ReturnResultAfterDeleteAsync(Guid id);
+        Task<IResult> ReturnResultAsync();
+        Task<IResult> ReturnResultAsync(CreatedItemDto item);
+        Task<IResult> ReturnResultAsync(Guid id);
+        Task<IResult> ReturnResultAsync(Guid id, UpdateItemDTO item);
     }
 }

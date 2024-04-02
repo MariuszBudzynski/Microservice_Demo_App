@@ -1,4 +1,6 @@
-﻿namespace DemoMS.Service
+﻿using DemoMS.Service.Catalog.ResponseHandler.Interfaces;
+
+namespace DemoMS.Service
 {
     public static class ServicesRegistration
     {

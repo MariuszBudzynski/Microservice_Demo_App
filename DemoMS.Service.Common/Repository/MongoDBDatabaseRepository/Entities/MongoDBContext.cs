@@ -6,7 +6,7 @@
         private readonly string _collectionName;
         private readonly string _databaseName;
       
-        public IMongoCollection<T> ItemsCollection { get; set; }
+        public IMongoCollection<T> DataCollection { get; set; }
       
         public FilterDefinitionBuilder<T> FilterBuilderItem{ get; set; }
 
@@ -18,7 +18,7 @@
             _collectionName = collectionName;
             
             var database = mongoClient.GetDatabase(_databaseName);
-            ItemsCollection = database.GetCollection<T>(_collectionName);
+            DataCollection = database.GetCollection<T>(_collectionName);
             FilterBuilderItem = Builders<T>.Filter;
         }
     }
