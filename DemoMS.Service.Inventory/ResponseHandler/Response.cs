@@ -22,19 +22,26 @@
             _catalogClient = catalogClient;
         }
 
-        //public async Task<IResult> ReturnResultAsync(Guid id)
-        //{
-        //    var data = (await _getAllDataUseCase
-        //        .ExecuteAsync(x => x.Id == id))
-        //        .Select(x => x.Mapp<InventoryItem, InventoryItemDTO>(z => new(,z.CatalogItemId, z.Quantity, z.AcquiredDate)));
-
-        //    return Results.Ok(data);
-        //}
-
-        public Task<IResult> ReturnResultAsync(Guid id)
+        public async Task<IResult> ReturnResultAsync(Guid id)
         {
-            //remove this after refactoring, it's only here so there is no error 
-            throw new NotImplementedException();
+            var inventoryItems = (await _getAllDataUseCase.ExecuteAsync()).FirstOrDefault(x=>x.Id == id);
+            var catalogItems = await _catalogClient.GetCatalogItemsAsync();
+
+            if (inventoryItems != null)
+            {
+                var catalogItem = catalogItems.FirstOrDefault(x=> x.Id == inventoryItems.CatalogItemId);
+
+              return Results.Ok(new InventoryItemDTO(
+                  catalogItem.Id,
+                  catalogItem.Name,
+                  catalogItem.Description,
+                  inventoryItems.Quantity,
+                  inventoryItems.AcquiredDate)
+                  );
+            }
+
+            return Results.NotFound(id);
+
         }
 
         public async Task<IResult> ReturnResultAsync(GrantItemsDTO grantItemsDTO)

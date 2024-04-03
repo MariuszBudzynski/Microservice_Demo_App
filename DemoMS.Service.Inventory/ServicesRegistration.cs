@@ -1,6 +1,4 @@
-﻿using DemoMS.Service.Inventory.Clients;
-
-namespace DemoMS.Service.Inventory
+﻿namespace DemoMS.Service.Inventory
 {
     public static class ServicesRegistration
     {
@@ -21,6 +19,8 @@ namespace DemoMS.Service.Inventory
                 var context = new MongoDBContext<InventoryItem>(connectionString, collectionName, databaseName);
                 return context;
             });
+
+            services.AddHttpClient();
 
             services.AddScoped<IResponse,Response>();
             services.AddScoped<IMongoDBRepository<InventoryItem>, MongoDBRepository<InventoryItem>>();
