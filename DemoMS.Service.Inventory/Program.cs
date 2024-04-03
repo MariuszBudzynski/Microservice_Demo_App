@@ -8,7 +8,7 @@ var configuration = new ConfigurationBuilder()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddValidatorsFromAssemblyContaining(typeof(InventoryItemDTO));
+builder.Services.AddValidatorsFromAssemblyContaining(typeof(GrantItemsDTO));
 
 ServicesRegistration.RegisterServices(builder.Services, configuration);
 

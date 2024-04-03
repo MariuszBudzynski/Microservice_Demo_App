@@ -10,9 +10,16 @@
             });
 
 
-            app.MapPut("/add-item", async (GrantItemsDTO grantItemsDTO, IResponse response) =>
+            app.MapPut("/add-item", async (IValidator<GrantItemsDTO> validator, GrantItemsDTO grantItemsDTO, IResponse response) =>
             {
-                return await response.ReturnResultAsync(grantItemsDTO);
+                var validation = await validator.ValidateAsync(grantItemsDTO);
+
+                if (validation.IsValid)
+                {
+                    return await response.ReturnResultAsync(grantItemsDTO);
+                }
+
+                else return Results.ValidationProblem(validation.ToDictionary());
             });
         }
     }
