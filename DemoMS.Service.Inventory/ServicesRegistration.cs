@@ -1,4 +1,6 @@
-﻿namespace DemoMS.Service.Inventory
+﻿using DemoMS.Service.Inventory.Clients;
+
+namespace DemoMS.Service.Inventory
 {
     public static class ServicesRegistration
     {
@@ -26,7 +28,7 @@
             services.AddScoped<IGetDataByIDUseCase<InventoryItem>, GetDataByIDUseCase<InventoryItem>>();
             services.AddScoped<IGetAllDataUseCase<InventoryItem>, GetAllDataUseCase<InventoryItem>>();
             services.AddScoped<IUpdateDataUseCase<InventoryItem>, UpdateDataUseCase<InventoryItem>>();
-            //services.AddScoped<IDeleteDataUseCase, DeleteDataUseCase<Item>>();
+            services.AddScoped<ICatalogClient, CatalogClient>();
         }
     }
 }

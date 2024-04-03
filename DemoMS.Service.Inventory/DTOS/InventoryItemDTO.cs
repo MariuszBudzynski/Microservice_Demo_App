@@ -1,4 +1,4 @@
 ﻿namespace DemoMS.Service.Inventory.DTOS
 {
-    public record InventoryItemDTO(Guid CatalogItemId,int Quantity,DateTimeOffset Acquired);
+    public record InventoryItemDTO(Guid CatalogItemId,string Name,string Description,int Quantity,DateTimeOffset Acquired);
 }

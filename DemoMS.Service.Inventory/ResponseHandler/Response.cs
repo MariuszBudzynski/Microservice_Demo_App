@@ -6,26 +6,35 @@
         private readonly IAddDataUseCase<InventoryItem> _addDataUseCase;
         private readonly IUpdateDataUseCase<InventoryItem> _updateDataUseCase;
         private readonly IGetAllDataUseCase<InventoryItem> _getAllDataUseCase;
+        private readonly ICatalogClient _catalogClient;
 
         public Response(
             IGetDataByIDUseCase<InventoryItem> getDataByIDUseCase,
             IAddDataUseCase<InventoryItem> addDataUseCase,
             IUpdateDataUseCase<InventoryItem> updateDataUseCase,
-            IGetAllDataUseCase<InventoryItem> getAllDataUseCase)
+            IGetAllDataUseCase<InventoryItem> getAllDataUseCase,
+            ICatalogClient catalogClient)
         {
             _getDataByIDUseCase = getDataByIDUseCase;
             _addDataUseCase = addDataUseCase;
             _updateDataUseCase = updateDataUseCase;
             _getAllDataUseCase = getAllDataUseCase;
+            _catalogClient = catalogClient;
         }
 
-        public async Task<IResult> ReturnResultAsync(Guid id)
-        {
-            var data = (await _getAllDataUseCase
-                .ExecuteAsync(x => x.Id == id))
-                .Select(x => x.Mapp<InventoryItem, InventoryItemDTO>(z => new(z.CatalogItemId, z.Quantity, z.AcquiredDate)));
+        //public async Task<IResult> ReturnResultAsync(Guid id)
+        //{
+        //    var data = (await _getAllDataUseCase
+        //        .ExecuteAsync(x => x.Id == id))
+        //        .Select(x => x.Mapp<InventoryItem, InventoryItemDTO>(z => new(,z.CatalogItemId, z.Quantity, z.AcquiredDate)));
 
-            return Results.Ok(data);
+        //    return Results.Ok(data);
+        //}
+
+        public Task<IResult> ReturnResultAsync(Guid id)
+        {
+            //remove this after refactoring, it's only here so there is no error 
+            throw new NotImplementedException();
         }
 
         public async Task<IResult> ReturnResultAsync(GrantItemsDTO grantItemsDTO)
@@ -59,5 +68,6 @@
                 return Results.Ok();
             }
         }
+
     }
 }
