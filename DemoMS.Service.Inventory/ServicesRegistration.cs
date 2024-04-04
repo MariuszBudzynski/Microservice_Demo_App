@@ -1,10 +1,8 @@
-﻿using Polly;
-
-namespace DemoMS.Service.Inventory
+﻿namespace DemoMS.Service.Inventory
 {
     public static class ServicesRegistration
     {
-        public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
+        public static void RegisterServices(this IServiceCollection services, IConfiguration configuration, WebApplicationBuilder builder)
         {
 
             var databaseConfiguration = new DatabaseConfiguration(configuration);
@@ -15,6 +13,10 @@ namespace DemoMS.Service.Inventory
             BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
             BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));
 
+            builder.Services.AddValidatorsFromAssemblyContaining(typeof(GrantItemsDTO));
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
             //configuring MongoDB to use the connection string inside the appsettings
             services.AddScoped(provider =>
             {
@@ -22,9 +24,10 @@ namespace DemoMS.Service.Inventory
                 return context;
             });
 
-            //services.AddHttpClient();
-
             services.AddHttpClient<CatalogClient>()
+            .AddTransientHttpErrorPolicy( builder => builder.WaitAndRetryAsync(
+                5,
+                retryAttemp => TimeSpan.FromSeconds(Math.Pow(2,retryAttemp))))
             .AddPolicyHandler(Policy.TimeoutAsync<HttpResponseMessage>(TimeSpan.FromSeconds(1)));
 
 

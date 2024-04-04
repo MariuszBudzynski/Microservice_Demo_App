@@ -5,12 +5,7 @@ var configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json")
     .Build();
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddValidatorsFromAssemblyContaining(typeof(GrantItemsDTO));
-
-ServicesRegistration.RegisterServices(builder.Services, configuration);
+ServicesRegistration.RegisterServices(builder.Services, configuration, builder);
 
 var app = builder.Build();
 
