@@ -14,7 +14,6 @@ global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.UseCases
 global using DemoMS.Service.Inventory.ResponseHandler;
 global using DemoMS.Service.Common.Extensions;
 global using FluentValidation;
-global using Microsoft.AspNetCore.Mvc;
 global using DemoMS.Service.Inventory.ResponseHandler.Interfaces;
 global using DemoMS.Service.Inventory.Clients.Interfaces;
 global using DemoMS.Service.Inventory.Clients;

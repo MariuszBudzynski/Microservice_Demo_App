@@ -1,4 +1,6 @@
-﻿namespace DemoMS.Service.Inventory
+﻿using Polly;
+
+namespace DemoMS.Service.Inventory
 {
     public static class ServicesRegistration
     {
@@ -20,7 +22,11 @@
                 return context;
             });
 
-            services.AddHttpClient();
+            //services.AddHttpClient();
+
+            services.AddHttpClient<CatalogClient>()
+            .AddPolicyHandler(Policy.TimeoutAsync<HttpResponseMessage>(TimeSpan.FromSeconds(1)));
+
 
             services.AddScoped<IResponse,Response>();
             services.AddScoped<IMongoDBRepository<InventoryItem>, MongoDBRepository<InventoryItem>>();
