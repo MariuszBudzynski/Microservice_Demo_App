@@ -4,7 +4,7 @@
     {
         public static void RegisterServices(this IServiceCollection services, IConfiguration configuration,WebApplicationBuilder builder)
         {
-
+            var rabbitMQSettings = configuration.GetSection("RabbitMQSettings");
             var databaseConfiguration = new DatabaseConfiguration(configuration);
             var connectionString = databaseConfiguration.GetConnectionString();
             var (collectionName, databaseName) = databaseConfiguration.GetDatabaseSettings();
@@ -27,13 +27,23 @@
                 return context;
             });
 
-            services.AddScoped<IResponse, Response>();
+            services.AddMassTransit(x =>
+            {
+                x.UsingRabbitMq((context, configurator) =>
+                {
+                    var host = rabbitMQSettings["Host"];
+  
+                });
+            });
+
+            services.AddScoped<IReturnResponse, ReturnResponse>();
             services.AddScoped<IMongoDBRepository<Item>,MongoDBRepository<Item>>();
             services.AddScoped<IAddDataUseCase<Item>, AddDataUseCase<Item>>();
             services.AddScoped<IGetDataByIDUseCase<Item>, GetDataByIDUseCase<Item>>();
             services.AddScoped<IGetAllDataUseCase<Item>, GetAllDataUseCase<Item>>();
             services.AddScoped<IUpdateDataUseCase<Item>, UpdateDataUseCase<Item>>();
             services.AddScoped<IDeleteDataUseCase<Item>, DeleteDataUseCase<Item>>();
+            services.AddScoped<PublishResponseHandler>();
 
         }
     }

@@ -1,6 +1,6 @@
-﻿namespace DemoMS.Service.Catalog.ResponseHandler.Interfaces
+﻿namespace DemoMS.Service.Catalog.Handlers.ResponseHandler.Interfaces
 {
-    public interface IResponse
+    public interface IReturnResponse
     {
         Task<IResult> ReturnResultAfterDeleteAsync(Guid id);
         Task<IResult> ReturnResultAsync();

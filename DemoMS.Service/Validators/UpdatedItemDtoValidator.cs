@@ -1,7 +1,4 @@
-﻿using DemoMS.Service.DTOS;
-using FluentValidation;
-
-namespace DemoMS.Service.Validators
+﻿namespace DemoMS.Service.Validators
 {
     public class UpdatedItemDtoValidator : AbstractValidator<UpdateItemDTO>
     {
