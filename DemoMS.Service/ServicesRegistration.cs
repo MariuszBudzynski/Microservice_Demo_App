@@ -2,7 +2,7 @@
 {
     public static class ServicesRegistration
     {
-        public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
+        public static void RegisterServices(this IServiceCollection services, IConfiguration configuration,WebApplicationBuilder builder)
         {
 
             var databaseConfiguration = new DatabaseConfiguration(configuration);
@@ -12,6 +12,13 @@
             // Mongo DB conversion to redable format
             BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
             BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));
+
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
+            //adding custom validation configuration
+            builder.Services.AddValidatorsFromAssemblyContaining(typeof(CreatedItemDtoValidator));
+            builder.Services.AddValidatorsFromAssemblyContaining(typeof(UpdatedItemDtoValidator));
 
             //configuring MongoDB to use the connection string inside the appsettings
             services.AddScoped(provider =>

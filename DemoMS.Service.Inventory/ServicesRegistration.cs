@@ -1,4 +1,6 @@
-﻿namespace DemoMS.Service.Inventory
+﻿using Polly.Timeout;
+
+namespace DemoMS.Service.Inventory
 {
     public static class ServicesRegistration
     {
@@ -25,9 +27,10 @@
             });
 
             services.AddHttpClient<CatalogClient>()
-            .AddTransientHttpErrorPolicy( builder => builder.WaitAndRetryAsync(
+            .AddTransientHttpErrorPolicy( builder => builder.Or<TimeoutRejectedException>().WaitAndRetryAsync(
                 5,
                 retryAttemp => TimeSpan.FromSeconds(Math.Pow(2,retryAttemp))))
+            .AddTransientHttpErrorPolicy(builder => builder.Or<TimeoutRejectedException>().CircuitBreakerAsync(3,TimeSpan.FromSeconds(15)))
             .AddPolicyHandler(Policy.TimeoutAsync<HttpResponseMessage>(TimeSpan.FromSeconds(1)));
 
 
