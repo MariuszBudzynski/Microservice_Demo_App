@@ -7,19 +7,22 @@
         private readonly IUpdateDataUseCase<InventoryItem> _updateDataUseCase;
         private readonly IGetAllDataUseCase<InventoryItem> _getAllDataUseCase;
         private readonly ICatalogClient _catalogClient;
+        private readonly InventoryItemDTOHelper _inventoryItemDTOHelper;
 
         public Response(
             IGetDataByIDUseCase<InventoryItem> getDataByIDUseCase,
             IAddDataUseCase<InventoryItem> addDataUseCase,
             IUpdateDataUseCase<InventoryItem> updateDataUseCase,
             IGetAllDataUseCase<InventoryItem> getAllDataUseCase,
-            ICatalogClient catalogClient)
+            ICatalogClient catalogClient,
+            InventoryItemDTOHelper inventoryItemDTOHelper)
         {
             _getDataByIDUseCase = getDataByIDUseCase;
             _addDataUseCase = addDataUseCase;
             _updateDataUseCase = updateDataUseCase;
             _getAllDataUseCase = getAllDataUseCase;
             _catalogClient = catalogClient;
+            _inventoryItemDTOHelper = inventoryItemDTOHelper;
         }
 
         public async Task<IResult> ReturnResultAsync(Guid id)
@@ -31,13 +34,7 @@
             {
                 var catalogItem = catalogItems.FirstOrDefault(x=> x.Id == inventoryItems.CatalogItemId);
 
-              return Results.Ok(new InventoryItemDTO(
-                  catalogItem.Id,
-                  catalogItem.Name,
-                  catalogItem.Description,
-                  inventoryItems.Quantity,
-                  inventoryItems.AcquiredDate)
-                  );
+                return Results.Ok(await _inventoryItemDTOHelper.CreateInventoryItemDTOAsync(catalogItem,inventoryItems));
             }
 
             return Results.NotFound(id);
@@ -75,6 +72,5 @@
                 return Results.Ok();
             }
         }
-
     }
 }

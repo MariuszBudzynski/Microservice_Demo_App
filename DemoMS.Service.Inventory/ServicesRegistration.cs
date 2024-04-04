@@ -29,6 +29,7 @@
             services.AddScoped<IGetAllDataUseCase<InventoryItem>, GetAllDataUseCase<InventoryItem>>();
             services.AddScoped<IUpdateDataUseCase<InventoryItem>, UpdateDataUseCase<InventoryItem>>();
             services.AddScoped<ICatalogClient, CatalogClient>();
+            services.AddScoped<InventoryItemDTOHelper>();
         }
     }
 }

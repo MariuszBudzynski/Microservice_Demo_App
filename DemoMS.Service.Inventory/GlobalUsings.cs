@@ -18,3 +18,4 @@ global using Microsoft.AspNetCore.Mvc;
 global using DemoMS.Service.Inventory.ResponseHandler.Interfaces;
 global using DemoMS.Service.Inventory.Clients.Interfaces;
 global using DemoMS.Service.Inventory.Clients;
+global using DemoMS.Service.Inventory.Helpers;

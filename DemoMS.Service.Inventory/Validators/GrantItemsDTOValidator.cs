@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace DemoMS.Service.Inventory.Validators
+﻿namespace DemoMS.Service.Inventory.Validators
 {
     public class GrantItemsDTOValidator : AbstractValidator<GrantItemsDTO>
     {
