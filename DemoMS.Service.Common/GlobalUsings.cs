@@ -8,3 +8,5 @@ global using Microsoft.AspNetCore.Http;
 global using MongoDB.Driver;
 global using MassTransit;
 global using Microsoft.Extensions.DependencyInjection;
+global using System.Reflection;
+

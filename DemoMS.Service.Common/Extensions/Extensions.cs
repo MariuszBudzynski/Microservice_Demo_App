@@ -6,12 +6,15 @@ public static class Extensions
             return mappfunction(source);
         }
 
-    public static void MassTransitConfiguration(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection MassTransitConfiguration(this IServiceCollection services, IConfiguration configuration)
     {
+
         var rabbitMQSettings = configuration.GetSection("RabbitMQSettings");
 
         services.AddMassTransit(x =>
         {
+            x.AddConsumers(Assembly.GetEntryAssembly());
+
             x.UsingRabbitMq((context, configurator) =>
             {
                 var host = rabbitMQSettings["Host"];
@@ -25,6 +28,8 @@ public static class Extensions
                 });
             });
         });
+
+        return services;
     }
 
 }

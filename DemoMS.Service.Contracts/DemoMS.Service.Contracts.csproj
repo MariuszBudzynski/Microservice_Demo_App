@@ -4,6 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageId>DemoMS.Service.Contracts</PackageId>
+    <Title>DemoMS.Service.Contracts</Title>
   </PropertyGroup>
 
 </Project>
