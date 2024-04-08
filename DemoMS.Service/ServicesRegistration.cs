@@ -32,7 +32,7 @@
                 x.UsingRabbitMq((context, configurator) =>
                 {
                     var host = rabbitMQSettings["Host"];
-  
+                    configurator.Host(host);
                 });
             });
 
