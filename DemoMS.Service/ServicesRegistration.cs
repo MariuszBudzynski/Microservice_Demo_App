@@ -32,7 +32,14 @@
                 x.UsingRabbitMq((context, configurator) =>
                 {
                     var host = rabbitMQSettings["Host"];
-                    configurator.Host(host);
+                    var username = rabbitMQSettings["Username"];
+                    var password = rabbitMQSettings["Password"];
+                    var virtualHost = rabbitMQSettings["VirtualHost"];
+                    configurator.Host(new Uri($"rabbitmq://{host}/{virtualHost}"), h =>
+                    {
+                        h.Username(username);
+                        h.Password(password);
+                    });
                 });
             });
 
