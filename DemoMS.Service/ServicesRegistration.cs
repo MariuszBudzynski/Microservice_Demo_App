@@ -13,6 +13,8 @@
             BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
             BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));
 
+            Extensions.MassTransitConfiguration(services, configuration);
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -25,22 +27,6 @@
             {
                 var context = new MongoDBContext<Item>(connectionString, collectionName, databaseName);
                 return context;
-            });
-
-            services.AddMassTransit(x =>
-            {
-                x.UsingRabbitMq((context, configurator) =>
-                {
-                    var host = rabbitMQSettings["Host"];
-                    var username = rabbitMQSettings["Username"];
-                    var password = rabbitMQSettings["Password"];
-                    var virtualHost = rabbitMQSettings["VirtualHost"];
-                    configurator.Host(new Uri($"rabbitmq://{host}/{virtualHost}"), h =>
-                    {
-                        h.Username(username);
-                        h.Password(password);
-                    });
-                });
             });
 
             services.AddScoped<IReturnResponse, ReturnResponse>();

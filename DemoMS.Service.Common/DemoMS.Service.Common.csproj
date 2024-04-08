@@ -7,11 +7,12 @@
 		<PackageId>DemoMS.Service.SharedCode</PackageId>
 		<Title>DemoMS.Service.SharedCode</Title>
 		<Description>DemoMS.Service.SharedCode</Description>
-		<Version>1.0</Version>
+		<Version>2.1</Version>
 	</PropertyGroup>
 
   <ItemGroup>
 	<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	<PackageReference Include="MassTransit.RabbitMQ" Version="8.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />

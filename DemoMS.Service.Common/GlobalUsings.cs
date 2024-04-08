@@ -6,3 +6,5 @@ global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.Interfac
 global using DemoMS.Service.Common.Repository.MongoDBDatabaseRepository.UseCases.Interfaces;
 global using Microsoft.AspNetCore.Http;
 global using MongoDB.Driver;
+global using MassTransit;
+global using Microsoft.Extensions.DependencyInjection;
