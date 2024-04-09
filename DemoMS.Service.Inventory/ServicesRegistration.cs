@@ -58,35 +58,13 @@ namespace DemoMS.Service.Inventory
             services.AddScoped<ICatalogClient, CatalogClient>();
             services.AddScoped<InventoryItemDTOHelper>();
 
-            services.AddScoped<IGetDataByIDUseCase<CatalogItem>>(provider =>
-            {
-                var dbContext = provider.GetRequiredService<IMongoDBRepository<CatalogItem>>();
-                return new GetDataByIDUseCase<CatalogItem>(dbContext);
-            });
+            services.AddScoped<IMongoDBRepository<CatalogItem>, MongoDBRepository<CatalogItem>>();
+            services.AddScoped<IAddDataUseCase<CatalogItem>, AddDataUseCase<CatalogItem>>();
+            services.AddScoped<IGetDataByIDUseCase<CatalogItem>, GetDataByIDUseCase<CatalogItem>>();
+            services.AddScoped<IGetAllDataUseCase<CatalogItem>, GetAllDataUseCase<CatalogItem>>();
+            services.AddScoped<IUpdateDataUseCase<CatalogItem>, UpdateDataUseCase<CatalogItem>>();
+            services.AddScoped<IDeleteDataUseCase<CatalogItem>, DeleteDataUseCase<CatalogItem>>();
 
-            services.AddScoped<IGetAllDataUseCase<CatalogItem>>(provider =>
-            {
-                var dbContext = provider.GetRequiredService<IMongoDBRepository<CatalogItem>>();
-                return new GetAllDataUseCase<CatalogItem>(dbContext);
-            });
-
-            services.AddScoped<IUpdateDataUseCase<CatalogItem>>(provider =>
-            {
-                var repository = provider.GetRequiredService<IMongoDBRepository<CatalogItem>>();
-                return new UpdateDataUseCase<CatalogItem>(repository);
-            });
-
-            services.AddScoped<IAddDataUseCase<CatalogItem>>(provider =>
-            {
-                var repository = provider.GetRequiredService<IMongoDBRepository<CatalogItem>>();
-                return new AddDataUseCase<CatalogItem>(repository);
-            });
-
-            services.AddScoped<IDeleteDataUseCase<CatalogItem>>(provider =>
-            {
-                var repository = provider.GetRequiredService<IMongoDBRepository<CatalogItem>>();
-                return new DeleteDataUseCase<CatalogItem>(repository);
-            });
 
         }
     }
