@@ -4,13 +4,13 @@
     {
         public static void ConfigureRoutes(WebApplication app)
         {
-            app.MapGet("/items", async (Guid id, IResponse response) =>
+            app.MapGet("/items", async (Guid id, IReturnResponse response) =>
             {
                 return await response.ReturnResultAsync(id);
             });
 
 
-            app.MapPut("/add-item", async (IValidator<GrantItemsDTO> validator, GrantItemsDTO grantItemsDTO, IResponse response) =>
+            app.MapPut("/add-item", async (IValidator<GrantItemsDTO> validator, GrantItemsDTO grantItemsDTO, IReturnResponse response) =>
             {
                 var validation = await validator.ValidateAsync(grantItemsDTO);
 

@@ -1,5 +1,6 @@
 ﻿namespace DemoMS.Service.Inventory.Clients
 {
+    //As I am implementing a service broker this is no longer valid but I am leaving it as a refrence
     public class CatalogClient : ICatalogClient
     {
         private readonly HttpClient _httpClient;

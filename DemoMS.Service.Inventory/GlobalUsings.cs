@@ -21,3 +21,7 @@ global using DemoMS.Service.Inventory.Helpers;
 global using Polly;
 global using MassTransit;
 global using DemoMS.Service.Contracts.Contracts;
+global using DemoMS.Service.Inventory.Consumers.Create;
+global using DemoMS.Service.Inventory.Consumers.Delete; 
+global using DemoMS.Service.Inventory.Consumers.Update;
+global using Polly.Timeout;

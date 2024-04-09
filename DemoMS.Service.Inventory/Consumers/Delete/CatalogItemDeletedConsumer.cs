@@ -1,6 +1,6 @@
 ﻿namespace DemoMS.Service.Inventory.Consumers.Delete
 {
-    public class CatalogItemDeletedConsumer : IConsumer<CatalogItemCreated>
+    public class CatalogItemDeletedConsumer : IConsumer<CatalogItemDeleted>
     {
         private readonly IDeleteDataUseCase<CatalogItem> _deleteDataUseCase;
         private readonly IGetDataByIDUseCase<CatalogItem> _getDataByIDUseCase;
@@ -10,7 +10,7 @@
             _deleteDataUseCase = deleteDataUseCase;
             _getDataByIDUseCase = getDataByIDUseCase;
         }
-        public async Task Consume(ConsumeContext<CatalogItemCreated> context)
+        public async Task Consume(ConsumeContext<CatalogItemDeleted> context)
         {
             var message = context.Message;
 

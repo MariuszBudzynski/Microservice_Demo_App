@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /DemoMS.Service/appsettings.json
 /DemoMS.Service/appsettings.json
+/DemoMS.Service.Inventory/appsettings.json

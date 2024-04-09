@@ -1,6 +1,6 @@
 ﻿namespace DemoMS.Service.Inventory.ResponseHandler.Interfaces
 {
-    public interface IResponse
+    public interface IReturnResponse
     {
         Task<IResult> ReturnResultAsync(GrantItemsDTO grantItemsDTO);
         Task<IResult> ReturnResultAsync(Guid id);

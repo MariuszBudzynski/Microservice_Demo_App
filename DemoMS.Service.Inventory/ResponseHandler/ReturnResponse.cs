@@ -1,6 +1,6 @@
 ﻿namespace DemoMS.Service.Inventory.ResponseHandler
 {
-    public class Response : IResponse
+    public class ReturnResponse : IReturnResponse
     {
         private readonly IGetDataByIDUseCase<InventoryItem> _getDataByIDUseCase;
         private readonly IAddDataUseCase<InventoryItem> _addDataUseCase;
@@ -9,7 +9,7 @@
         private readonly ICatalogClient _catalogClient;
         private readonly InventoryItemDTOHelper _inventoryItemDTOHelper;
 
-        public Response(
+        public ReturnResponse(
             IGetDataByIDUseCase<InventoryItem> getDataByIDUseCase,
             IAddDataUseCase<InventoryItem> addDataUseCase,
             IUpdateDataUseCase<InventoryItem> updateDataUseCase,

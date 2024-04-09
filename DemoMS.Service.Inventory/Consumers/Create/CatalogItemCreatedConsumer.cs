@@ -1,15 +1,16 @@
 ﻿namespace DemoMS.Service.Inventory.Consumers.Create
 {
-    public class CatalogItemDeletedConsumer : IConsumer<CatalogItemCreated>
+    public class CatalogItemCreatedConsumer : IConsumer<CatalogItemCreated>
     {
         private readonly IAddDataUseCase<CatalogItem> _addDataUseCase;
         private readonly IGetDataByIDUseCase<CatalogItem> _getDataByIDUseCase;
 
-        public CatalogItemDeletedConsumer(IAddDataUseCase<CatalogItem> addDataUseCase,IGetDataByIDUseCase<CatalogItem> getDataByIDUseCase)
+        public CatalogItemCreatedConsumer(IAddDataUseCase<CatalogItem> addDataUseCase, IGetDataByIDUseCase<CatalogItem> getDataByIDUseCase)
         {
             _addDataUseCase = addDataUseCase;
             _getDataByIDUseCase = getDataByIDUseCase;
         }
+
         public async Task Consume(ConsumeContext<CatalogItemCreated> context)
         {
             var message = context.Message;
@@ -22,7 +23,7 @@
             }
 
             await _addDataUseCase.ExecuteAsync(message
-                                 .Mapp<CatalogItemCreated,CatalogItem>(x=>
+                                 .Mapp<CatalogItemCreated, CatalogItem>(x =>
                                     new()
                                     {
                                         Id = x.ItemId,
@@ -30,5 +31,6 @@
                                         Description = x.Description
                                     }));
         }
+
     }
 }

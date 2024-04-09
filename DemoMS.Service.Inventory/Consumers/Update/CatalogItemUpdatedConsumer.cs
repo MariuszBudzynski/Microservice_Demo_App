@@ -10,9 +10,9 @@
                                           IUpdateDataUseCase<CatalogItem> updateDataUseCase,
                                           IAddDataUseCase<CatalogItem> addDataUseCase)
         {
-                        _getDataByIDUseCase = getDataByIDUseCase;
-                        _updateDataUseCase = updateDataUseCase;
-                        _addDataUseCase = addDataUseCase;
+            _getDataByIDUseCase = getDataByIDUseCase;
+            _updateDataUseCase = updateDataUseCase;
+            _addDataUseCase = addDataUseCase;
         }
 
         public async Task Consume(ConsumeContext<CatalogItemUpdated> context)
@@ -33,9 +33,9 @@
                 await _addDataUseCase.ExecuteAsync(mappedItem);
             }
 
-            else 
+            else
             {
-                await _updateDataUseCase.ExecuteAsync(mappedItem,item.Id);
+                await _updateDataUseCase.ExecuteAsync(mappedItem, item.Id);
             }
         }
     }
