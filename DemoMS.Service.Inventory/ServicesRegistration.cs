@@ -15,6 +15,8 @@ namespace DemoMS.Service.Inventory
             BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
             BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));
 
+            Extensions.MassTransitConfiguration(services, configuration);
+
             builder.Services.AddValidatorsFromAssemblyContaining(typeof(GrantItemsDTO));
 
             builder.Services.AddEndpointsApiExplorer();
@@ -29,6 +31,8 @@ namespace DemoMS.Service.Inventory
 
             services.AddScoped(provider =>
             {
+                //this needs to be testted, check if this connection string is proper
+
                 var catalogCollectionName = configuration["CatalogConfiguration:CollectionName"];
                 var catalogDatabaseName = configuration["CatalogConfiguration:DatabaseName"];
 
