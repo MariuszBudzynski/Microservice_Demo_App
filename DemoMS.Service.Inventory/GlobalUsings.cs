@@ -19,3 +19,5 @@ global using DemoMS.Service.Inventory.Clients.Interfaces;
 global using DemoMS.Service.Inventory.Clients;
 global using DemoMS.Service.Inventory.Helpers;
 global using Polly;
+global using MassTransit;
+global using DemoMS.Service.Contracts.Contracts;
