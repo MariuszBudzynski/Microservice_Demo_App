@@ -1,4 +1,6 @@
-﻿namespace DemoMS.Service
+﻿using Microsoft.Extensions.Configuration;
+
+namespace DemoMS.Service
 {
     public static class ServicesRegistration
     {
@@ -8,12 +10,13 @@
             var databaseConfiguration = new DatabaseConfiguration(configuration);
             var connectionString = databaseConfiguration.GetConnectionString();
             var (collectionName, databaseName) = databaseConfiguration.GetDatabaseSettings();
+            var massTransitConfig = new MassTransitConfig(configuration);
 
             // Mongo DB conversion to redable format
             BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
             BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));
 
-            Extensions.MassTransitConfiguration(services, configuration);
+            massTransitConfig.MassTransitConfiguration(services);
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -37,6 +40,7 @@
             services.AddScoped<IUpdateDataUseCase<Item>, UpdateDataUseCase<Item>>();
             services.AddScoped<IDeleteDataUseCase<Item>, DeleteDataUseCase<Item>>();
             services.AddScoped<PublishResponseHandler>();
+            services.AddScoped<MassTransitConfig>();
 
         }
     }

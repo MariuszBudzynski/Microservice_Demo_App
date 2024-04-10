@@ -7,7 +7,7 @@
 		<PackageId>DemoMS.Service.SharedCode</PackageId>
 		<Title>DemoMS.Service.SharedCode</Title>
 		<Description>DemoMS.Service.SharedCode</Description>
-		<Version>2.2</Version>
+		<Version>3.0</Version>
 	</PropertyGroup>
 
   <ItemGroup>

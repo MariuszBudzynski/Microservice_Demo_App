@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace DemoMS.Service.Inventory
+﻿namespace DemoMS.Service.Inventory
 {
     public static class ServicesRegistration
     {
@@ -10,12 +8,16 @@ namespace DemoMS.Service.Inventory
             var databaseConfiguration = new DatabaseConfiguration(configuration);
             var connectionString = databaseConfiguration.GetConnectionString();
             var (collectionName, databaseName) = databaseConfiguration.GetDatabaseSettings();
+            var massTransitConfig = new MassTransitConfig(configuration);
 
             // Mongo DB conversion to redable format
             BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
             BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));
 
-            Extensions.MassTransitConfiguration(services, configuration);
+            massTransitConfig.MassTransitConfiguration(services);
+            massTransitConfig.AddMassTransitConsumer<CatalogItemDeletedConsumer>(services);
+            massTransitConfig.AddMassTransitConsumer<CatalogItemUpdatedConsumer>(services);
+            massTransitConfig.AddMassTransitConsumer<CatalogItemCreatedConsumer>(services);
 
             builder.Services.AddValidatorsFromAssemblyContaining(typeof(GrantItemsDTO));
 
@@ -33,11 +35,15 @@ namespace DemoMS.Service.Inventory
             {
                 //this needs to be testted, check if this connection string is proper
 
-                var catalogCollectionName = configuration["CatalogConfiguration:CollectionName"];
-                var catalogDatabaseName = configuration["CatalogConfiguration:DatabaseName"];
+                //var catalogCollectionName = configuration["CatalogConfiguration:CollectionName"];
+                //var catalogDatabaseName = configuration["CatalogConfiguration:DatabaseName"];
 
-                var context = new MongoDBContext<CatalogItem>(connectionString, catalogCollectionName, catalogDatabaseName);
+                //var context = new MongoDBContext<CatalogItem>(connectionString, catalogCollectionName, catalogDatabaseName);
+                //return context;
+
+                var context = new MongoDBContext<CatalogItem>(connectionString, collectionName, databaseName);
                 return context;
+
             });
 
             //As I am implementing a service broker this is no longer valid but I am leaving it as a refrence
@@ -61,6 +67,7 @@ namespace DemoMS.Service.Inventory
             services.AddScoped<IUpdateDataUseCase<InventoryItem>, UpdateDataUseCase<InventoryItem>>();
             services.AddScoped<ICatalogClient, CatalogClient>();
             services.AddScoped<InventoryItemDTOHelper>();
+            services.AddScoped<MassTransitConfig>();
 
             services.AddScoped<IMongoDBRepository<CatalogItem>, MongoDBRepository<CatalogItem>>();
             services.AddScoped<IAddDataUseCase<CatalogItem>, AddDataUseCase<CatalogItem>>();
