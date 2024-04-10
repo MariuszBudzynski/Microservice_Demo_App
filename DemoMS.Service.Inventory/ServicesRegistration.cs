@@ -1,23 +1,57 @@
-﻿namespace DemoMS.Service.Inventory
+﻿using Microsoft.Extensions.Configuration;
+
+namespace DemoMS.Service.Inventory
 {
     public static class ServicesRegistration
     {
         public static void RegisterServices(this IServiceCollection services, IConfiguration configuration, WebApplicationBuilder builder)
         {
-
+            var rabbitMQSettings = configuration.GetSection("RabbitMQSettings");
             var databaseConfiguration = new DatabaseConfiguration(configuration);
             var connectionString = databaseConfiguration.GetConnectionString();
             var (collectionName, databaseName) = databaseConfiguration.GetDatabaseSettings();
-            var massTransitConfig = new MassTransitConfig(configuration);
+            //var massTransitConfig = new MassTransitConfig(configuration);
 
             // Mongo DB conversion to redable format
             BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
             BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));
 
-            massTransitConfig.MassTransitConfiguration(services);
-            massTransitConfig.AddMassTransitConsumer<CatalogItemDeletedConsumer>(services);
-            massTransitConfig.AddMassTransitConsumer<CatalogItemUpdatedConsumer>(services);
-            massTransitConfig.AddMassTransitConsumer<CatalogItemCreatedConsumer>(services);
+            services.AddMassTransit(x =>
+            {
+                x.AddConsumer<CatalogItemDeletedConsumer>();
+                x.AddConsumer<CatalogItemUpdatedConsumer>();
+                x.AddConsumer<CatalogItemCreatedConsumer>();
+
+
+                x.UsingRabbitMq((context, configurator) =>
+                {
+                    var host = rabbitMQSettings["Host"];
+                    var username = rabbitMQSettings["Username"];
+                    var password = rabbitMQSettings["Password"];
+                    var virtualHost = rabbitMQSettings["VirtualHost"];
+                    configurator.Host(new Uri($"rabbitmq://{host}/{virtualHost}"), h =>
+                    {
+                        h.Username(username);
+                        h.Password(password);
+                    });
+
+                    configurator.ReceiveEndpoint("Delete", e =>
+                    {
+                        e.Consumer<CatalogItemDeletedConsumer>(context);
+                    });
+
+                    configurator.ReceiveEndpoint("Update", e =>
+                    {
+                        e.Consumer<CatalogItemUpdatedConsumer>(context);
+                    });
+
+                    configurator.ReceiveEndpoint("Create", e =>
+                    {
+                        e.Consumer<CatalogItemCreatedConsumer>(context);
+                    });
+
+                });
+            });
 
             builder.Services.AddValidatorsFromAssemblyContaining(typeof(GrantItemsDTO));
 
@@ -33,14 +67,6 @@
 
             services.AddScoped(provider =>
             {
-                //this needs to be testted, check if this connection string is proper
-
-                //var catalogCollectionName = configuration["CatalogConfiguration:CollectionName"];
-                //var catalogDatabaseName = configuration["CatalogConfiguration:DatabaseName"];
-
-                //var context = new MongoDBContext<CatalogItem>(connectionString, catalogCollectionName, catalogDatabaseName);
-                //return context;
-
                 var context = new MongoDBContext<CatalogItem>(connectionString, collectionName, databaseName);
                 return context;
 
@@ -67,7 +93,6 @@
             services.AddScoped<IUpdateDataUseCase<InventoryItem>, UpdateDataUseCase<InventoryItem>>();
             services.AddScoped<ICatalogClient, CatalogClient>();
             services.AddScoped<InventoryItemDTOHelper>();
-            services.AddScoped<MassTransitConfig>();
 
             services.AddScoped<IMongoDBRepository<CatalogItem>, MongoDBRepository<CatalogItem>>();
             services.AddScoped<IAddDataUseCase<CatalogItem>, AddDataUseCase<CatalogItem>>();

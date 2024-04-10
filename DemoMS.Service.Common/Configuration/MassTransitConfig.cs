@@ -1,44 +1,23 @@
-﻿namespace DemoMS.Service.Common.Extensions
+﻿public class MassTransitConfig
 {
-    public class MassTransitConfig
+    public static void ConfigureMassTransit(IServiceCollection services, IConfiguration configuration)
     {
-        private readonly IConfiguration _configuration;
+        var rabbitMQSettings = configuration.GetSection("RabbitMQSettings");
 
-        public MassTransitConfig(IConfiguration configuration)
+        services.AddMassTransit(x =>
         {
-            _configuration = configuration;
-        }
-
-        public IServiceCollection MassTransitConfiguration(IServiceCollection services)
-        {
-            var rabbitMQSettings = _configuration.GetSection("RabbitMQSettings");
-
-            services.AddMassTransit(x =>
+            x.UsingRabbitMq((context, configurator) =>
             {
-                x.UsingRabbitMq((context, configurator) =>
+                var host = rabbitMQSettings["Host"];
+                var username = rabbitMQSettings["Username"];
+                var password = rabbitMQSettings["Password"];
+                var virtualHost = rabbitMQSettings["VirtualHost"];
+                configurator.Host(new Uri($"rabbitmq://{host}/{virtualHost}"), h =>
                 {
-                    var host = rabbitMQSettings["Host"];
-                    var username = rabbitMQSettings["Username"];
-                    var password = rabbitMQSettings["Password"];
-                    var virtualHost = rabbitMQSettings["VirtualHost"];
-                    configurator.Host(new Uri($"rabbitmq://{host}/{virtualHost}"), h =>
-                    {
-                        h.Username(username);
-                        h.Password(password);
-                    });
-
-                    configurator.ConfigureEndpoints(context);
+                    h.Username(username);
+                    h.Password(password);
                 });
             });
-
-            return services;
-        }
-
-        public IServiceCollection AddMassTransitConsumer<TConsumer>(IServiceCollection services)
-            where TConsumer : class, IConsumer
-        {
-            return services.AddScoped<TConsumer>()
-                           .AddScoped<IConsumer>(provider => provider.GetService<TConsumer>());
-        }
+        });
     }
 }

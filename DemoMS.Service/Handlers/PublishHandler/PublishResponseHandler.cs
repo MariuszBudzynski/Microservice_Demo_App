@@ -17,13 +17,13 @@
 
         public async Task PublishCatalogItemDeletedAsync(Item item)
         {
-            var itemToPublish = item.Mapp<Item, CatalogItemCreated>(x => new(item.Id, item.Name, item.Description));
+            var itemToPublish = item.Mapp<Item, CatalogItemDeleted>(x => new(item.Id));
             await _publishEndpoint.Publish(itemToPublish);
         }
 
         public async Task PublishCatalogItemCreatedAsync(Item item)
         {
-            var itemToPublish = item.Mapp<Item, CatalogItemDeleted>(x => new(item.Id));
+            var itemToPublish = item.Mapp<Item, CatalogItemCreated>(x => new(item.Id, item.Name, item.Description));
             await _publishEndpoint.Publish(itemToPublish);
         }
     }
