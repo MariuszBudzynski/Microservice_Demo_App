@@ -95,6 +95,7 @@
             services.AddScoped<IGetDataByIDUseCase<InventoryItem>, GetDataByIDUseCase<InventoryItem>>();
             services.AddScoped<IGetAllDataUseCase<InventoryItem>, GetAllDataUseCase<InventoryItem>>();
             services.AddScoped<IUpdateDataUseCase<InventoryItem>, UpdateDataUseCase<InventoryItem>>();
+            services.AddScoped<IDeleteDataUseCase<InventoryItem>,DeleteDataUseCase<InventoryItem>>();
             services.AddScoped<ICatalogClient, CatalogClient>();
             services.AddScoped<InventoryItemDTOHelper>();
 

@@ -27,10 +27,10 @@
         {
             var inventoryItem = await _getInventoryItemByIDUseCase.ExecuteAsync(id);
 
-            var catalogItem = await _getCatalogItemByIdUseCase.ExecuteAsync(inventoryItem.CatalogItemId);
            
             if (inventoryItem != null)
             {
+                var catalogItem = await _getCatalogItemByIdUseCase.ExecuteAsync(inventoryItem.CatalogItemId);
 
                 return Results.Ok(await _inventoryItemDTOHelper.CreateInventoryItemDTOAsync(catalogItem, inventoryItem));
             }

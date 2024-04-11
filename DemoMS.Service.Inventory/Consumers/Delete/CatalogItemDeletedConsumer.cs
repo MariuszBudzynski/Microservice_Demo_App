@@ -2,26 +2,40 @@
 {
     public class CatalogItemDeletedConsumer : IConsumer<CatalogItemDeleted>
     {
-        private readonly IDeleteDataUseCase<CatalogItem> _deleteDataUseCase;
-        private readonly IGetDataByIDUseCase<CatalogItem> _getDataByIDUseCase;
+        private readonly IDeleteDataUseCase<CatalogItem> _deleteCatalogItemUseCase;
+        private readonly IGetDataByIDUseCase<CatalogItem> _getCatalogItemByIDUseCase;
+        private readonly IDeleteDataUseCase<InventoryItem> _deleteInventoryItemUseCase;
+        private readonly IGetAllDataUseCase<InventoryItem> _getAllInventoryItemsUseCase;
 
-        public CatalogItemDeletedConsumer(IDeleteDataUseCase<CatalogItem> deleteDataUseCase, IGetDataByIDUseCase<CatalogItem> getDataByIDUseCase)
+        public CatalogItemDeletedConsumer(IDeleteDataUseCase<CatalogItem> deleteCatalogItemUseCase,
+                                        IGetDataByIDUseCase<CatalogItem> getCatalogItemByIDUseCase,
+                                        IDeleteDataUseCase<InventoryItem> deleteInventoryItemUseCase,
+                                        IGetAllDataUseCase<InventoryItem> getAllInventoryItemsUseCase)
         {
-            _deleteDataUseCase = deleteDataUseCase;
-            _getDataByIDUseCase = getDataByIDUseCase;
+            _deleteCatalogItemUseCase = deleteCatalogItemUseCase;
+            _getCatalogItemByIDUseCase = getCatalogItemByIDUseCase;
+            _deleteInventoryItemUseCase = deleteInventoryItemUseCase;
+            _getAllInventoryItemsUseCase = getAllInventoryItemsUseCase;
         }
         public async Task Consume(ConsumeContext<CatalogItemDeleted> context)
         {
             var message = context.Message;
 
-            var item = await _getDataByIDUseCase.ExecuteAsync(message.ItemId);
+            var catalogItem = await _getCatalogItemByIDUseCase.ExecuteAsync(message.ItemId);
 
-            if (item != null)
+            var inventoryItem = (await _getAllInventoryItemsUseCase.ExecuteAsync()).FirstOrDefault(x=>x.CatalogItemId == message.ItemId);
+
+            if (catalogItem == null)
             {
                 return;
             }
 
-            await _deleteDataUseCase.ExecuteAsync(item.Id);
+            if (inventoryItem != null)
+            {
+                await _deleteInventoryItemUseCase.ExecuteAsync(inventoryItem.Id);
+            }
+
+            await _deleteCatalogItemUseCase.ExecuteAsync(catalogItem.Id);
         }
     }
 }

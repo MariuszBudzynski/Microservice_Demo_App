@@ -86,7 +86,7 @@
 
         public async Task<IResult> ReturnResultAfterDeleteAsync(Guid id)
         {
-            var data = await _deleteDataUseCase.ExecuteAsync(id);
+            var data = await _getDataByIDUseCase.ExecuteAsync(id);
 
             if (data == null)
             {
@@ -94,6 +94,8 @@
             }
             else
             {
+                await _deleteDataUseCase.ExecuteAsync(id);
+
                 await _publishEndpointHandler.PublishCatalogItemDeletedAsync(data);
 
                 return Results.Ok();
