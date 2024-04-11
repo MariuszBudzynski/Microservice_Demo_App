@@ -2,48 +2,49 @@
 {
     public class ReturnResponse : IReturnResponse
     {
-        private readonly IGetDataByIDUseCase<InventoryItem> _getDataByIDUseCase;
+        private readonly IGetDataByIDUseCase<InventoryItem> _getInventoryItemByIDUseCase;
         private readonly IAddDataUseCase<InventoryItem> _addDataUseCase;
         private readonly IUpdateDataUseCase<InventoryItem> _updateDataUseCase;
-        private readonly IGetAllDataUseCase<InventoryItem> _getAllDataUseCase;
-        private readonly ICatalogClient _catalogClient;
         private readonly InventoryItemDTOHelper _inventoryItemDTOHelper;
+        private readonly IGetDataByIDUseCase<CatalogItem> _getCatalogItemByIdUseCase;
 
         public ReturnResponse(
-            IGetDataByIDUseCase<InventoryItem> getDataByIDUseCase,
+            IGetDataByIDUseCase<InventoryItem> getInventoryItemByIDUseCase,
             IAddDataUseCase<InventoryItem> addDataUseCase,
             IUpdateDataUseCase<InventoryItem> updateDataUseCase,
-            IGetAllDataUseCase<InventoryItem> getAllDataUseCase,
-            ICatalogClient catalogClient,
-            InventoryItemDTOHelper inventoryItemDTOHelper)
+            InventoryItemDTOHelper inventoryItemDTOHelper,
+            IGetDataByIDUseCase<CatalogItem> getCatalogItemByIdUseCase
+            )
         {
-            _getDataByIDUseCase = getDataByIDUseCase;
+            _getInventoryItemByIDUseCase = getInventoryItemByIDUseCase;
             _addDataUseCase = addDataUseCase;
             _updateDataUseCase = updateDataUseCase;
-            _getAllDataUseCase = getAllDataUseCase;
-            _catalogClient = catalogClient;
             _inventoryItemDTOHelper = inventoryItemDTOHelper;
+            _getCatalogItemByIdUseCase = getCatalogItemByIdUseCase;
         }
 
         public async Task<IResult> ReturnResultAsync(Guid id)
         {
-            var inventoryItems = (await _getAllDataUseCase.ExecuteAsync()).FirstOrDefault(x=>x.Id == id);
-            var catalogItems = await _catalogClient.GetCatalogItemsAsync();
+            var inventoryItem = await _getInventoryItemByIDUseCase.ExecuteAsync(id);
 
-            if (inventoryItems != null)
+            var catalogItem = await _getCatalogItemByIdUseCase.ExecuteAsync(inventoryItem.CatalogItemId);
+           
+            if (inventoryItem != null)
             {
-                var catalogItem = catalogItems.FirstOrDefault(x=> x.Id == inventoryItems.CatalogItemId);
 
-                return Results.Ok(await _inventoryItemDTOHelper.CreateInventoryItemDTOAsync(catalogItem,inventoryItems));
+                return Results.Ok(await _inventoryItemDTOHelper.CreateInventoryItemDTOAsync(catalogItem, inventoryItem));
             }
 
-            return Results.NotFound(id);
+            return Results.NotFound($"Item id {id} not found");
 
         }
 
         public async Task<IResult> ReturnResultAsync(GrantItemsDTO grantItemsDTO)
         {
-            var data = await _getDataByIDUseCase.ExecuteAsync(x=> x.UserId == grantItemsDTO.UserId);
+            var data = await _getInventoryItemByIDUseCase.ExecuteAsync(x=> x.UserId == grantItemsDTO.UserId);
+
+            var catalogItem = await _getCatalogItemByIdUseCase.ExecuteAsync(grantItemsDTO.CatalogitemId);
+
 
             if (data == null)
             {
@@ -51,7 +52,7 @@
                 {
                     Id = Guid.NewGuid(),
                     UserId = grantItemsDTO.UserId,
-                    CatalogItemId = grantItemsDTO.CatalogitemId,
+                    CatalogItemId = catalogItem.Id,
                     Quantity = grantItemsDTO.Quantity,
                     AcquiredDate = DateTimeOffset.UtcNow
                 });
@@ -63,8 +64,8 @@
             else
             {
                 data.UserId = grantItemsDTO.UserId;
-                data.CatalogItemId = grantItemsDTO.CatalogitemId;
-                data.Quantity = grantItemsDTO.Quantity; 
+                data.CatalogItemId = catalogItem.Id;
+                data.Quantity = grantItemsDTO.Quantity;
                 data.AcquiredDate = DateTimeOffset.UtcNow;
 
                 await _updateDataUseCase.ExecuteAsync(data, data.Id);

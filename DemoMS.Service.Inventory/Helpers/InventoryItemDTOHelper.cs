@@ -2,7 +2,7 @@
 {
     public class InventoryItemDTOHelper
     {
-        public async Task<InventoryItemDTO> CreateInventoryItemDTOAsync(CatalogItemDto catalogItem, InventoryItem inventoryItems)
+        public async Task<InventoryItemDTO> CreateInventoryItemDTOAsync(CatalogItem catalogItem, InventoryItem inventoryItems)
         {
             return await Task.FromResult(new InventoryItemDTO(
                 catalogItem.Id,

@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace DemoMS.Service.Inventory
+﻿namespace DemoMS.Service.Inventory
 {
     public static class ServicesRegistration
     {
@@ -9,8 +7,6 @@ namespace DemoMS.Service.Inventory
             var rabbitMQSettings = configuration.GetSection("RabbitMQSettings");
             var databaseConfiguration = new DatabaseConfiguration(configuration);
             var connectionString = databaseConfiguration.GetConnectionString();
-            var (collectionName, databaseName) = databaseConfiguration.GetDatabaseSettings();
-            //var massTransitConfig = new MassTransitConfig(configuration);
 
             // Mongo DB conversion to redable format
             BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
@@ -61,12 +57,20 @@ namespace DemoMS.Service.Inventory
             //configuring MongoDB to use the connection string inside the appsettings
             services.AddScoped(provider =>
             {
+                var inventoryItemsConfig = configuration.GetSection("Configuration:InventoryItems");
+                var collectionName = inventoryItemsConfig["CollectionName"];
+                var databaseName = inventoryItemsConfig["DatabaseName"];
+
                 var context = new MongoDBContext<InventoryItem>(connectionString, collectionName, databaseName);
                 return context;
             });
 
             services.AddScoped(provider =>
             {
+                var catalogItemsConfig = configuration.GetSection("Configuration:CatalogItems");
+                var collectionName = catalogItemsConfig["CollectionName"];
+                var databaseName = catalogItemsConfig["DatabaseName"];
+
                 var context = new MongoDBContext<CatalogItem>(connectionString, collectionName, databaseName);
                 return context;
 
