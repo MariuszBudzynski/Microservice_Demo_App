@@ -11,14 +11,28 @@
 
         public async Task<T> ExecuteAsync(Guid id)
         {
-            var data = await _dBRepository.GetDataByIDAsync(id);
-            return data;
+            try
+            {
+                var data = await _dBRepository.GetDataByIDAsync(id);
+                return data;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<T> ExecuteAsync(Expression<Func<T, bool>> filter)
         {
-            var data = await _dBRepository.GetDataByIDAsync(filter);
-            return data;
+            try
+            {
+                var data = await _dBRepository.GetDataByIDAsync(filter);
+                return data;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

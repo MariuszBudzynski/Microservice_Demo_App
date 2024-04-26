@@ -11,41 +11,90 @@
 
         public async Task<IReadOnlyCollection<T>> GetAllDataAsync()
         {
-            var filter = _db.FilterBuilderItem.Empty;
-            return await _db.DataCollection.Find(filter).ToListAsync();
+            try
+            {
+                var filter = _db.FilterBuilderItem.Empty;
+                return await _db.DataCollection.Find(filter).ToListAsync();
+            }
+            catch (MongoException ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<IReadOnlyCollection<T>> GetAllDataAsync(Expression<Func<T, bool>> filter)
         {
-            return await _db.DataCollection.Find(filter).ToListAsync();
+            try
+            {
+                return await _db.DataCollection.Find(filter).ToListAsync();
+            }
+            catch (MongoException ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<T> GetDataByIDAsync(Guid id)
         {
-            var filter = _db.FilterBuilderItem.Eq(entity => entity.Id, id);
-            return await _db.DataCollection.Find(filter).FirstOrDefaultAsync();
+            try
+            {
+                var filter = _db.FilterBuilderItem.Eq(entity => entity.Id, id);
+                return await _db.DataCollection.Find(filter).FirstOrDefaultAsync();
+            }
+            catch (MongoException ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<T> GetDataByIDAsync(Expression<Func<T, bool>> filter)
         {
-            return await _db.DataCollection.Find(filter).FirstOrDefaultAsync();
+            try
+            {
+                return await _db.DataCollection.Find(filter).FirstOrDefaultAsync();
+            }
+            catch (MongoException ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task AddDataAsync(T item)
         {
-            await _db.DataCollection.InsertOneAsync(item);
+            try
+            {
+                await _db.DataCollection.InsertOneAsync(item);
+            }
+            catch (MongoException ex)
+            {
+                throw ex;
+            }
         }
 
-        public async Task UpdateDataAsync(T item,Guid id)
+        public async Task UpdateDataAsync(T item, Guid id)
         {
-            var filter = _db.FilterBuilderItem.Eq(entity => entity.Id, id);
-            await _db.DataCollection.ReplaceOneAsync(filter, item);
+            try
+            {
+                var filter = _db.FilterBuilderItem.Eq(entity => entity.Id, id);
+                await _db.DataCollection.ReplaceOneAsync(filter, item);
+            }
+            catch (MongoException ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task DeleteDataAsync(Guid id)
         {
-            var filter = _db.FilterBuilderItem.Eq(entity => entity.Id, id);
-            await _db.DataCollection.DeleteOneAsync(filter);
+            try
+            {
+                var filter = _db.FilterBuilderItem.Eq(entity => entity.Id, id);
+                await _db.DataCollection.DeleteOneAsync(filter);
+            }
+            catch (MongoException ex)
+            {
+                throw ex;
+            }
         }
     }
 }

@@ -11,19 +11,24 @@
 
         public async Task<T> ExecuteAsync(Guid id)
         {
-            var data = await _dBRepository.GetDataByIDAsync(id);
+            try
+            {
+                var data = await _dBRepository.GetDataByIDAsync(id);
 
-            if (data == null)
-            {
-                return data;
+                if (data == null)
+                {
+                    return data;
+                }
+                else
+                {
+                    await _dBRepository.DeleteDataAsync(id);
+                    return data;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                await _dBRepository.DeleteDataAsync(id);
-                return data;
+                throw ex;
             }
         }
-
-
     }
 }

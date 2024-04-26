@@ -9,21 +9,26 @@
             _dBRepository = dBRepository;
         }
 
-        public async Task<T> ExecuteAsync(T item,Guid id)
+        public async Task<T> ExecuteAsync(T item, Guid id)
         {
-            var data = await _dBRepository.GetDataByIDAsync(id);
+            try
+            {
+                var data = await _dBRepository.GetDataByIDAsync(id);
 
-            if (data == null)
-            {
-                return data;
+                if (data == null)
+                {
+                    return data;
+                }
+                else
+                {
+                    await _dBRepository.UpdateDataAsync(item, id);
+                    return data;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                await _dBRepository.UpdateDataAsync(item, id);
-                return data;
+                throw ex;
             }
         }
-
-
     }
 }

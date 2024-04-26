@@ -11,14 +11,28 @@
 
         public async Task<IReadOnlyCollection<T>> ExecuteAsync()
         {
-            var data = await _dBRepository.GetAllDataAsync();
-            return data;
+            try
+            {
+                var data = await _dBRepository.GetAllDataAsync();
+                return data;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<IReadOnlyCollection<T>> ExecuteAsync(Expression<Func<T, bool>> filter)
         {
-            var data = await _dBRepository.GetAllDataAsync(filter);
-            return data;
+            try
+            {
+                var data = await _dBRepository.GetAllDataAsync(filter);
+                return data;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

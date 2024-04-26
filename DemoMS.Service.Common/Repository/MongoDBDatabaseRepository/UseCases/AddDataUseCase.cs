@@ -11,7 +11,14 @@
 
         public async Task ExecuteAsync(T item)
         {
-            await _dBRepository.AddDataAsync(item);
+            try
+            {
+                await _dBRepository.AddDataAsync(item);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
