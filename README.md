@@ -4,8 +4,10 @@ The demo application simulates interaction between microservices using MongoDB, 
 * C#
 * .NET
 * MongoDB
+* DTOS
 * Clean Architecture
 * DI Injection
 * Minimal API (REST)
+* JSON
 * MassTransit
 * RabbitMQ
