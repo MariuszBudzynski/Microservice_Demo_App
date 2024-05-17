@@ -6,7 +6,7 @@ The demo application simulates interaction between microservices using MongoDB, 
 * MongoDB
 * DTOS
 * Clean Architecture
-* DI Injection
+* Dependency Injection
 * Minimal API (REST)
 * JSON
 * MassTransit
